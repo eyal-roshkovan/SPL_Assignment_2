@@ -1,5 +1,7 @@
 package memory;
 
+import java.util.NoSuchElementException;
+
 public class SharedMatrix {
 
     private volatile SharedVector[] vectors = {}; // underlying vectors
@@ -27,31 +29,36 @@ public class SharedMatrix {
     }
 
     public void loadColumnMajor(double[][] matrix) {
-        if(matrix == null)
+        if (matrix == null)
             throw new NullPointerException("matrix is null");
 
-        vectors = new SharedVector[matrix.length];
-        for (int i = 0; i < matrix.length; i++)
-            vectors[i] = new SharedVector(matrix[i], VectorOrientation.COLUMN_MAJOR);
+        vectors = new SharedVector[matrix[0].length];
+        for (int col = 0; col < vectors.length; col++) {
+            double[] column = new double[matrix.length];
+            for (int row = 0; row < matrix.length ; row++ ){
+                column[row] = matrix[row][col];
+            }
+            vectors[col] = new SharedVector(column, VectorOrientation.COLUMN_MAJOR);
+        }
     }
 
     public double[][] readRowMajor() {
-        double[][] matrix = new double[vectors.length][];
-
+        double[][] matrix;
         if(vectors[0].getOrientation() == VectorOrientation.ROW_MAJOR)
         {
+            matrix = new double[vectors.length][];
             int row = 0;
             for(SharedVector v : vectors)
             {
+                matrix[row] = new double[v.length()];
                 for(int col = 0; col < v.length(); col++)
-                {
                     matrix[row][col] = v.get(col);
-                }
                 row++;
             }
         }
         else
         {
+            matrix = new double[vectors[0].length()][vectors.length];
             int col = 0;
             for(SharedVector v : vectors)
             {
@@ -75,6 +82,8 @@ public class SharedMatrix {
     }
 
     public int length() {
+        if(vectors != null)
+            throw new NoSuchElementException();
         return vectors.length;
     }
 

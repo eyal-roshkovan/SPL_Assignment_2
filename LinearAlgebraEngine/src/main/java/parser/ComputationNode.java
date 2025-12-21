@@ -96,6 +96,4 @@ public class ComputationNode {
         }
         return matrix;
     }
-
-
 }

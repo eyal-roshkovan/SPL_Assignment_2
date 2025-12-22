@@ -75,7 +75,7 @@ public class SharedMatrix {
 
     public SharedVector get(int index) {
         // TODO: return vector at index
-        if(length() < index || index < 0)
+        if(length() <= index || index < 0)
             throw new IndexOutOfBoundsException("index out of bounds");
 
         return vectors[index];

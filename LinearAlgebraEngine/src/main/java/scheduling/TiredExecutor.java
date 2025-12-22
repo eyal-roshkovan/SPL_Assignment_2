@@ -68,6 +68,11 @@ public class TiredExecutor {
 
     public void shutdown() throws InterruptedException {
         // TODO
+        for (TiredThread worker : workers)
+            worker.shutdown();
+
+        for (TiredThread worker : workers)
+            worker.join();
     }
 
     public synchronized String getWorkerReport() {

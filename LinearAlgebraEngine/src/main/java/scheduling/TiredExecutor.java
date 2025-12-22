@@ -48,6 +48,22 @@ public class TiredExecutor {
 
     public void submitAll(Iterable<Runnable> tasks) {
         // TODO: submit tasks one by one and wait until all finish
+        for (Runnable task : tasks) {
+            submit(task);
+        }
+        synchronized (inFlight) {
+            while (inFlight.get() != 0)
+            {
+                try {
+                    inFlight.wait();
+                }
+                catch(InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        }
+
     }
 
     public void shutdown() throws InterruptedException {

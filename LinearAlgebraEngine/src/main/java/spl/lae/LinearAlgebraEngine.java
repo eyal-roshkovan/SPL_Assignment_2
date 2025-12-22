@@ -79,7 +79,7 @@ public class LinearAlgebraEngine {
         List<Runnable> tasks = new ArrayList<>();
 
         for (int i = 0; i < row ; i++) {
-             int rowIndex = i;
+            final int rowIndex = i;
 
             tasks.add(() -> {
                 SharedVector v1 = leftMatrix.get(rowIndex);
@@ -94,21 +94,56 @@ public class LinearAlgebraEngine {
 
     public List<Runnable> createMultiplyTasks() {
         // TODO: return tasks that perform row × matrix multiplication
-        return null;
+        int row = leftMatrix.getRowsCount();
+        if(row != rightMatrix.getColsCount())
+            throw new IllegalArgumentException("The dimensions are not compatible");
+
+        List<Runnable> tasks = new ArrayList<>();
+        for(int i = 0; i< row; i++) {
+            final int rowIndex = i;
+
+            tasks.add(() -> {
+                SharedVector v1 = leftMatrix.get(rowIndex);
+                v1.vecMatMul(rightMatrix);
+            });
+        }
+        return tasks;
     }
 
     public List<Runnable> createNegateTasks() {
         // TODO: return tasks that negate rows
-        return null;
+        int row = leftMatrix.getRowsCount();
+        List<Runnable> tasks = new ArrayList<>();
+
+        for (int i = 0; i < row ; i++) {
+           final int rowIndex = i;
+
+            tasks.add(() -> {
+                SharedVector v1 = leftMatrix.get(rowIndex);
+                v1.negate();
+            });
+        }
+        return tasks;
     }
 
     public List<Runnable> createTransposeTasks() {
         // TODO: return tasks that transpose rows
-        return null;
+        int row = leftMatrix.getRowsCount();
+        List<Runnable> tasks = new ArrayList<>();
+
+        for (int i = 0; i < row ; i++) {
+            final int rowIndex = i;
+
+            tasks.add(() -> {
+                SharedVector v1 = leftMatrix.get(rowIndex);
+                v1.transpose();
+            });
+        }
+        return tasks;
     }
 
     public String getWorkerReport() {
         // TODO: return summary of worker activity
-        return null;
+        return executor.getWorkerReport();
     }
 }

@@ -13,11 +13,37 @@ public class TiredExecutor {
 
     public TiredExecutor(int numThreads) {
         // TODO
-        workers = null; // placeholder
+        workers = new TiredThread[numThreads];
+        for (int i = 0; i < numThreads; i++) {
+            workers[i] = new TiredThread(i, Math.random() + 0.5);
+            workers[i].start();
+            idleMinHeap.offer(workers[i]);
+        }
+
     }
 
     public void submit(Runnable task) {
         // TODO
+        try{
+            TiredThread lazyWorker = idleMinHeap.take();
+            inFlight.incrementAndGet();
+            Runnable wrappedTask = ()->{
+                try{
+                    task.run();
+                }
+                finally {
+                    idleMinHeap.offer(lazyWorker);
+                    synchronized (inFlight) {
+                        if(inFlight.decrementAndGet() == 0)
+                            inFlight.notifyAll();
+                    }
+                }
+            };
+            lazyWorker.newTask(wrappedTask);
+        }
+        catch(InterruptedException e){
+            Thread.currentThread().interrupt();
+        }
     }
 
     public void submitAll(Iterable<Runnable> tasks) {

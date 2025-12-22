@@ -57,6 +57,8 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
      */
     public void newTask(Runnable task) {
        // TODO
+        if(handoff.offer(task))
+            throw new IllegalStateException("Worker " + id + " is busy");
     }
 
     /**
@@ -65,6 +67,8 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
      */
     public void shutdown() {
        // TODO
+        alive.set(false);
+        newTask(POISON_PILL);
     }
 
     @Override
@@ -88,13 +92,6 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
             catch (InterruptedException e) {
                 break;
             }
-
-
-
-
-
-
-            timeIdle.set(System.nanoTime());
         }
     }
 

@@ -115,4 +115,15 @@ public class SharedMatrix {
         for(SharedVector v : vecs)
             v.writeUnlock();
     }
+
+    public int getColsCount(){
+        if(vectors[0].getOrientation() == VectorOrientation.COLUMN_MAJOR)
+            return vectors.length;
+        return vectors[0].length();
+    }
+    public int getRowsCount(){
+        if(vectors[0].getOrientation() == VectorOrientation.ROW_MAJOR)
+            return vectors.length;
+        return vectors[0].length();
+    }
 }

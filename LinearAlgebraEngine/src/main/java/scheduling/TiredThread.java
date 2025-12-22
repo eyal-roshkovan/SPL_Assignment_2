@@ -57,7 +57,7 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
      */
     public void newTask(Runnable task) {
        // TODO
-        if(handoff.offer(task))
+        if(!handoff.offer(task))
             throw new IllegalStateException("Worker " + id + " is busy");
     }
 
@@ -87,6 +87,7 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
 
                 long endTime = System.nanoTime();
                 timeUsed.addAndGet(endTime - startTime);
+                idleStartTime.set(System.nanoTime());
                 busy.set(false);
             }
             catch (InterruptedException e) {
@@ -98,6 +99,6 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
     @Override
     public int compareTo(TiredThread o) {
         // TODO
-        return 0;
+        return Double.compare(this.getFatigue(), o.getFatigue());
     }
 }

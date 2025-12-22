@@ -64,7 +64,7 @@ public class SharedMatrix {
             {
                 for(int row = 0; row < v.length(); row++)
                 {
-                    matrix[row][col] = v.get(col);
+                    matrix[row][col] = v.get(row);
                 }
                 col++;
             }
@@ -82,7 +82,7 @@ public class SharedMatrix {
     }
 
     public int length() {
-        if(vectors != null)
+        if(vectors == null)
             throw new NoSuchElementException();
         return vectors.length;
     }

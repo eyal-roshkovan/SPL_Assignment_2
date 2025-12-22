@@ -36,18 +36,22 @@ public class SharedVector {
 
     public void writeLock() {
         // TODO: acquire write lock
+        lock.writeLock().lock();
     }
 
     public void writeUnlock() {
         // TODO: release write lock
+        lock.writeLock().unlock();
     }
 
     public void readLock() {
         // TODO: acquire read lock
+        lock.readLock().lock();
     }
 
     public void readUnlock() {
         // TODO: release read lock
+        lock.readLock().unlock();
     }
 
     public void transpose() {

@@ -76,21 +76,23 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
        // TODO
         while (alive.get()) {
             try {
-                idleStartTime.set(System.nanoTime());
                 Runnable task = handoff.take();
                 if(task == POISON_PILL)
                     break;
+
                 busy.set(true);
                 long startTime = System.nanoTime();
-                timeIdle.addAndGet(System.nanoTime() - startTime);
+                timeIdle.addAndGet(startTime - idleStartTime.get());
                 task.run();
 
                 long endTime = System.nanoTime();
                 timeUsed.addAndGet(endTime - startTime);
                 idleStartTime.set(System.nanoTime());
+
                 busy.set(false);
             }
             catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 break;
             }
         }

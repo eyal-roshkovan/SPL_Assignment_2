@@ -65,7 +65,7 @@ public class SharedVector {
     public void add(SharedVector other) {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
-
+        // TODO: Check about lock order in order to prevent deadlock
         writeLock();
         other.readLock();
 

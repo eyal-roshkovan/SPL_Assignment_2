@@ -23,70 +23,51 @@ public class SharedMatrix {
         if(matrix == null)
             throw new NullPointerException("matrix is null");
 
-        acquireAllVectorWriteLocks(vectors);
-        try {
-            vectors = new SharedVector[matrix.length];
-            for (int i = 0; i < matrix.length; i++)
-                vectors[i] = new SharedVector(matrix[i], VectorOrientation.ROW_MAJOR);
-        }
-        finally {
-            releaseAllVectorWriteLocks(vectors);
-        }
+        vectors = new SharedVector[matrix.length];
+        for (int i = 0; i < matrix.length; i++)
+            vectors[i] = new SharedVector(matrix[i], VectorOrientation.ROW_MAJOR);
     }
 
     public void loadColumnMajor(double[][] matrix) {
         if (matrix == null)
             throw new NullPointerException("matrix is null");
 
-        acquireAllVectorWriteLocks(vectors);
-        try{
-            vectors = new SharedVector[matrix[0].length];
-            for (int col = 0; col < vectors.length; col++) {
-                double[] column = new double[matrix.length];
-                for (int row = 0; row < matrix.length ; row++ ){
-                    column[row] = matrix[row][col];
-                }
-
-                vectors[col] = new SharedVector(column, VectorOrientation.COLUMN_MAJOR);
+        vectors = new SharedVector[matrix[0].length];
+        for (int col = 0; col < vectors.length; col++) {
+            double[] column = new double[matrix.length];
+            for (int row = 0; row < matrix.length ; row++ ){
+                column[row] = matrix[row][col];
             }
-        }
-        finally {
-            releaseAllVectorWriteLocks(vectors);
+            vectors[col] = new SharedVector(column, VectorOrientation.COLUMN_MAJOR);
         }
     }
 
     public double[][] readRowMajor() {
         double[][] matrix;
-        acquireAllVectorReadLocks(vectors);
-        try {
-            if(vectors[0].getOrientation() == VectorOrientation.ROW_MAJOR)
+        if(vectors[0].getOrientation() == VectorOrientation.ROW_MAJOR)
+        {
+            matrix = new double[vectors.length][];
+            int row = 0;
+            for(SharedVector v : vectors)
             {
-                matrix = new double[vectors.length][];
-                int row = 0;
-                for(SharedVector v : vectors)
-                {
-                    matrix[row] = new double[v.length()];
-                    for(int col = 0; col < v.length(); col++)
-                        matrix[row][col] = v.get(col);
-                    row++;
-                }
-            }
-            else
-            {
-                matrix = new double[vectors[0].length()][vectors.length];
-                int col = 0;
-                for(SharedVector v : vectors)
-                {
-                    for(int row = 0; row < v.length(); row++)
-                    {
-                        matrix[row][col] = v.get(row);
-                    }
-                    col++;
-                }
+                matrix[row] = new double[v.length()];
+                for(int col = 0; col < v.length(); col++)
+                    matrix[row][col] = v.get(col);
+                row++;
             }
         }
-        finally {
-            releaseAllVectorReadLocks(vectors);
+        else
+        {
+            matrix = new double[vectors[0].length()][vectors.length];
+            int col = 0;
+            for(SharedVector v : vectors)
+            {
+                for(int row = 0; row < v.length(); row++)
+                {
+                    matrix[row][col] = v.get(col);
+                }
+                col++;
+            }
         }
         return matrix;
     }
@@ -108,8 +89,6 @@ public class SharedMatrix {
 
     public VectorOrientation getOrientation() {
         // TODO: return orientation
-        if (vectors == null || vectors.length == 0)
-            throw new IllegalStateException("Matrix is null or empty");
         return vectors[0].getOrientation();
     }
 
@@ -135,5 +114,16 @@ public class SharedMatrix {
         // TODO: release write locks
         for(SharedVector v : vecs)
             v.writeUnlock();
+    }
+
+    public int getColsCount(){
+        if(vectors[0].getOrientation() == VectorOrientation.COLUMN_MAJOR)
+            return vectors.length;
+        return vectors[0].length();
+    }
+    public int getRowsCount(){
+        if(vectors[0].getOrientation() == VectorOrientation.ROW_MAJOR)
+            return vectors.length;
+        return vectors[0].length();
     }
 }

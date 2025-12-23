@@ -65,8 +65,10 @@ public class SharedVector {
     public void add(SharedVector other) {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
+
         writeLock();
         other.readLock();
+
         try {
             for (int i = 0; i < length(); i++)
                 vector[i] = vector[i] + other.get(i);

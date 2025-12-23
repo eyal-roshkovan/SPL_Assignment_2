@@ -19,7 +19,6 @@ public class TiredExecutor {
             workers[i].start();
             idleMinHeap.offer(workers[i]);
         }
-
     }
 
     public void submit(Runnable task) {

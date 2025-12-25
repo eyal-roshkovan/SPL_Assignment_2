@@ -32,6 +32,12 @@ public class LinearAlgebraEngine {
             result = new ComputationNode(res);
             newNode = computationRoot.findResolvable();
         }
+        try{
+            executor.shutdown();
+        }
+        catch(Exception e){
+            // TODO: figure out the meaning of an exception here
+        }
 
     return result;
     }
@@ -95,7 +101,7 @@ public class LinearAlgebraEngine {
     public List<Runnable> createMultiplyTasks() {
         // TODO: return tasks that perform row × matrix multiplication
         int row = leftMatrix.getRowsCount();
-        if(row != rightMatrix.getColsCount())
+        if(leftMatrix.getColsCount() != rightMatrix.getRowsCount())
             throw new IllegalArgumentException("The dimensions are not compatible");
 
         List<Runnable> tasks = new ArrayList<>();

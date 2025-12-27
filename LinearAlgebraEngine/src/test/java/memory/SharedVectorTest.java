@@ -41,6 +41,10 @@ class SharedVectorTest {
 
     @org.junit.jupiter.api.Test
     void length() {
+        assertEquals(firstVector.length, sharedVectorFirstObject.length());
+        assertEquals(secondVector.length, sharedVectorSecondObject.length());
+        assertEquals(thirdVector.length, sharedVectorThirdObject.length());
+        assertEquals(fourthVector.length, sharedVectorFourthObject.length());
     }
 
     @org.junit.jupiter.api.Test

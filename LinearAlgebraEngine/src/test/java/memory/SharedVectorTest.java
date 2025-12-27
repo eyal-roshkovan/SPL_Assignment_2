@@ -73,6 +73,15 @@ class SharedVectorTest {
 
     @org.junit.jupiter.api.Test
     void transpose() {
+        sharedVectorFirstObject.transpose();
+        sharedVectorSecondObject.transpose();
+        sharedVectorThirdObject.transpose();
+        sharedVectorFourthObject.transpose();
+
+        assertEquals(VectorOrientation.COLUMN_MAJOR, sharedVectorFirstObject.getOrientation());
+        assertEquals(VectorOrientation.COLUMN_MAJOR, sharedVectorSecondObject.getOrientation());
+        assertEquals(VectorOrientation.ROW_MAJOR, sharedVectorThirdObject.getOrientation());
+        assertEquals(VectorOrientation.COLUMN_MAJOR, sharedVectorFourthObject.getOrientation());
     }
 
     @org.junit.jupiter.api.Test

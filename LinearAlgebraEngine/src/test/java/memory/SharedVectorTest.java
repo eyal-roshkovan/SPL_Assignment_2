@@ -117,6 +117,22 @@ class SharedVectorTest {
 
     @org.junit.jupiter.api.Test
     void dot() {
+        double firstMulRes = 0;
+        double secondMulRes = 0;
+        for (int i = 0; i < firstVector.length; i++)
+            firstMulRes += firstVector[i] * thirdVector[i];
+
+        for (int i = 0; i < secondVector.length; i++)
+            secondMulRes += secondVector[i] * thirdVector[i];
+
+        assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.dot(sharedVectorSecondObject));
+        assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.dot(sharedVectorFourthObject));
+        assertThrows(IllegalArgumentException.class, () -> sharedVectorSecondObject.dot(sharedVectorFourthObject));
+
+        assertEquals(firstMulRes, sharedVectorThirdObject.dot(sharedVectorFirstObject));
+        assertEquals(firstMulRes, sharedVectorFirstObject.dot(sharedVectorThirdObject));
+        assertEquals(secondMulRes, sharedVectorSecondObject.dot(sharedVectorThirdObject));
+        assertEquals(secondMulRes, sharedVectorThirdObject.dot(sharedVectorSecondObject));
     }
 
     @org.junit.jupiter.api.Test

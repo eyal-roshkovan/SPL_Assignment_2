@@ -49,6 +49,10 @@ class SharedVectorTest {
 
     @org.junit.jupiter.api.Test
     void getOrientation() {
+        assertEquals(VectorOrientation.ROW_MAJOR, sharedVectorFirstObject.getOrientation());
+        assertEquals(VectorOrientation.ROW_MAJOR, sharedVectorSecondObject.getOrientation());
+        assertEquals(VectorOrientation.COLUMN_MAJOR, sharedVectorThirdObject.getOrientation());
+        assertEquals(VectorOrientation.ROW_MAJOR, sharedVectorFourthObject.getOrientation());
     }
 
     @org.junit.jupiter.api.Test

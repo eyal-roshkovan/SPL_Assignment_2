@@ -86,6 +86,13 @@ class SharedVectorTest {
 
     @org.junit.jupiter.api.Test
     void add() {
+        assertDoesNotThrow(() -> sharedVectorFirstObject.add(sharedVectorSecondObject));
+        for (int i = 0; i < firstVector.length; i++)
+            assertEquals(firstVector[i] + secondVector[i], sharedVectorFirstObject.get(i));
+
+        assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.add(sharedVectorThirdObject)); // not same orientation
+
+        assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.add(sharedVectorFourthObject)); // not same length
     }
 
     @org.junit.jupiter.api.Test

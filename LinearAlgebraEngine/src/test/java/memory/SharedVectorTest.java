@@ -97,6 +97,22 @@ class SharedVectorTest {
 
     @org.junit.jupiter.api.Test
     void negate() {
+        assertDoesNotThrow(() -> sharedVectorFirstObject.negate());
+        assertDoesNotThrow(() -> sharedVectorSecondObject.negate());
+        assertDoesNotThrow(() -> sharedVectorThirdObject.negate());
+        assertDoesNotThrow(() -> sharedVectorFourthObject.negate());
+
+        for (int i = 0; i < firstVector.length; i++)
+            assertEquals(firstVector[i], -sharedVectorFirstObject.get(i));
+
+        for (int i = 0; i < secondVector.length; i++)
+            assertEquals(secondVector[i], -sharedVectorSecondObject.get(i));
+
+        for (int i = 0; i < thirdVector.length; i++)
+            assertEquals(thirdVector[i], -sharedVectorThirdObject.get(i));
+
+        for (int i = 0; i < fourthVector.length; i++)
+            assertEquals(fourthVector[i], -sharedVectorFourthObject.get(i));
     }
 
     @org.junit.jupiter.api.Test

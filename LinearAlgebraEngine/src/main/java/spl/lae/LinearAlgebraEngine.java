@@ -21,11 +21,11 @@ public class LinearAlgebraEngine {
         // TODO: resolve computation tree step by step until final matrix is produced
         ComputationNode result = null;
         // TODO: wait for clarification on the "only matrix" input
+        if(computationRoot.getNodeType() == ComputationNodeType.MATRIX)
+            return computationRoot;
+
         computationRoot.associativeNesting();
         ComputationNode newNode = computationRoot.findResolvable();
-
-        if(newNode.getNodeType() == ComputationNodeType.MATRIX)
-            return newNode;
 
         while (newNode != null) {
             loadAndCompute(newNode);

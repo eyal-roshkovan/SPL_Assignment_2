@@ -79,7 +79,7 @@ public class SharedMatrix {
 
     public SharedVector get(int index) {
         // TODO: return vector at index
-        if(length() < index || index < 0)
+        if(length() <= index || index < 0)
             throw new IndexOutOfBoundsException("index out of bounds");
 
         return vectors[index];
@@ -119,5 +119,16 @@ public class SharedMatrix {
         // TODO: release write locks
         for(SharedVector v : vecs)
             v.writeUnlock();
+    }
+
+    public int getColsCount(){
+        if(vectors[0].getOrientation() == VectorOrientation.COLUMN_MAJOR)
+            return vectors.length;
+        return vectors[0].length();
+    }
+    public int getRowsCount(){
+        if(vectors[0].getOrientation() == VectorOrientation.ROW_MAJOR)
+            return vectors.length;
+        return vectors[0].length();
     }
 }

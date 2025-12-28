@@ -44,6 +44,7 @@ public class SharedMatrix {
 
     public double[][] readRowMajor() {
         double[][] matrix;
+        acquireAllVectorReadLocks(vectors);
         if(vectors[0].getOrientation() == VectorOrientation.ROW_MAJOR)
         {
             matrix = new double[vectors.length][];
@@ -69,6 +70,7 @@ public class SharedMatrix {
                 col++;
             }
         }
+        releaseAllVectorReadLocks(vectors);
         return matrix;
     }
 
@@ -84,6 +86,7 @@ public class SharedMatrix {
     public int length() {
         if(vectors != null)
             throw new NoSuchElementException();
+
         return vectors.length;
     }
 

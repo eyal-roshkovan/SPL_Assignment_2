@@ -48,6 +48,7 @@ public class SharedMatrix {
         {
             matrix = new double[vectors.length][];
             int row = 0;
+            acquireAllVectorReadLocks(vectors);
             for(SharedVector v : vectors)
             {
                 matrix[row] = new double[v.length()];
@@ -55,11 +56,13 @@ public class SharedMatrix {
                     matrix[row][col] = v.get(col);
                 row++;
             }
+            releaseAllVectorReadLocks(vectors);
         }
         else
         {
             matrix = new double[vectors[0].length()][vectors.length];
             int col = 0;
+            acquireAllVectorReadLocks(vectors);
             for(SharedVector v : vectors)
             {
                 for(int row = 0; row < v.length(); row++)
@@ -68,6 +71,7 @@ public class SharedMatrix {
                 }
                 col++;
             }
+            releaseAllVectorReadLocks(vectors);
         }
         return matrix;
     }
@@ -84,6 +88,7 @@ public class SharedMatrix {
     public int length() {
         if(vectors != null)
             throw new NoSuchElementException();
+
         return vectors.length;
     }
 

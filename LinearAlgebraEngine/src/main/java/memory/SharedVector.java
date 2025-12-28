@@ -96,6 +96,8 @@ public class SharedVector {
         for(int i =0 ; i < matrix.length(); i++)
             newVector[i] = dot(matrix.get(i));
 
+        writeLock();
         vector = newVector;
+        writeUnlock();
     }
 }

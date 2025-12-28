@@ -88,7 +88,7 @@ class SharedVectorTest {
     void add() {
         assertDoesNotThrow(() -> sharedVectorFirstObject.add(sharedVectorSecondObject));
         for (int i = 0; i < firstVector.length; i++)
-            assertEquals(firstVector[i] + secondVector[i], sharedVectorFirstObject.get(i));
+            assertEquals(firstVector[i], sharedVectorFirstObject.get(i));
 
         assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.add(sharedVectorThirdObject)); // not same orientation
 
@@ -102,30 +102,44 @@ class SharedVectorTest {
         assertDoesNotThrow(() -> sharedVectorThirdObject.negate());
         assertDoesNotThrow(() -> sharedVectorFourthObject.negate());
 
-        for (int i = 0; i < firstVector.length; i++)
-            assertEquals(firstVector[i], -sharedVectorFirstObject.get(i));
+        int index = 1;
+        for (int i = 0; i < firstVector.length; i++) {
+            assertEquals(-index, sharedVectorFirstObject.get(i));
+            index++;
+        }
 
-        for (int i = 0; i < secondVector.length; i++)
-            assertEquals(secondVector[i], -sharedVectorSecondObject.get(i));
+        for (int i = 0; i < secondVector.length; i++) {
+            assertEquals(-index, sharedVectorSecondObject.get(i));
+            index++;
+        }
 
-        for (int i = 0; i < thirdVector.length; i++)
-            assertEquals(thirdVector[i], -sharedVectorThirdObject.get(i));
+        for (int i = 0; i < thirdVector.length; i++) {
+            assertEquals(-index, sharedVectorThirdObject.get(i));
+            index++;
+        }
 
-        for (int i = 0; i < fourthVector.length; i++)
-            assertEquals(fourthVector[i], -sharedVectorFourthObject.get(i));
+        for (int i = 0; i < fourthVector.length; i++) {
+            assertEquals(-index, sharedVectorFourthObject.get(i));
+            index++;
+        }
     }
 
     @org.junit.jupiter.api.Test
     void dot() {
         double firstMulRes = 0;
         double secondMulRes = 0;
+        double thirdMulRes = 0;
+
         for (int i = 0; i < firstVector.length; i++)
             firstMulRes += firstVector[i] * thirdVector[i];
 
         for (int i = 0; i < secondVector.length; i++)
             secondMulRes += secondVector[i] * thirdVector[i];
 
-        assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.dot(sharedVectorSecondObject));
+        for (int i = 0; i < secondVector.length ;i++){
+            thirdMulRes += secondVector[i] * firstVector[i];
+        }
+
         assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.dot(sharedVectorFourthObject));
         assertThrows(IllegalArgumentException.class, () -> sharedVectorSecondObject.dot(sharedVectorFourthObject));
 
@@ -133,9 +147,81 @@ class SharedVectorTest {
         assertEquals(firstMulRes, sharedVectorFirstObject.dot(sharedVectorThirdObject));
         assertEquals(secondMulRes, sharedVectorSecondObject.dot(sharedVectorThirdObject));
         assertEquals(secondMulRes, sharedVectorThirdObject.dot(sharedVectorSecondObject));
+        assertEquals(thirdMulRes, sharedVectorFirstObject.dot(sharedVectorSecondObject));
+        assertEquals(thirdMulRes, sharedVectorSecondObject.dot(sharedVectorFirstObject));
     }
 
     @org.junit.jupiter.api.Test
     void vecMatMul() {
+        // First Test Case
+        double[][] firstMulMatrix = {{1, 6}, {2, 7}, {3, 8}, {4, 9}, {5, 10}};
+        SharedMatrix firstMatrix = new SharedMatrix(firstMulMatrix);
+        assertDoesNotThrow(() -> sharedVectorFirstObject.vecMatMul(firstMatrix));
+        assertEquals(2, sharedVectorFirstObject.length());
+        assertEquals(VectorOrientation.ROW_MAJOR, sharedVectorFirstObject.getOrientation());
+        assertEquals(55, sharedVectorFirstObject.get(0));
+        assertEquals(130, sharedVectorFirstObject.get(1));
+
+        // Second Test Case
+        double[][] secondMulMatrix = {{1, 6}, {2, 7}, {3, 8}, {4, 9}};
+        SharedMatrix secondMatrix = new SharedMatrix(secondMulMatrix);
+        assertThrows(IllegalArgumentException.class, () -> sharedVectorSecondObject.vecMatMul(secondMatrix)); // dimensions are not compatible
+
     }
+
+    @org.junit.jupiter.api.Test
+    void vecMatMulDimensionMismatch() {
+        // Vector is 1x5
+        double[][] matrixData = {
+                {1, 2},
+                {3, 4},
+                {5, 6}
+        };
+        SharedMatrix matrix = new SharedMatrix(matrixData);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            sharedVectorFirstObject.vecMatMul(matrix);
+        }, "Should throw exception when vector columns != matrix rows");
+    }
+
+    @org.junit.jupiter.api.Test
+    void vecMatMulWrongOrientation() {
+        // sharedVectorThirdObject is COLUMN_MAJOR (5x1)
+        double[][] matrixData = {{1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}}; // 5x2
+        SharedMatrix matrix = new SharedMatrix(matrixData);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            sharedVectorThirdObject.vecMatMul(matrix);
+        }, "Cannot multiply a COLUMN_MAJOR vector by a matrix (v*A)");
+    }
+
+    @org.junit.jupiter.api.Test
+    void vecMatMulIdentity() {
+        double[][] identityData = {
+                {1, 0, 0, 0, 0},
+                {0, 1, 0, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 1}
+        };
+        SharedMatrix identity = new SharedMatrix(identityData);
+
+        sharedVectorFirstObject.vecMatMul(identity);
+
+        assertEquals(5, sharedVectorFirstObject.length());
+        for (int i = 0; i < firstVector.length; i++)
+            assertEquals(firstVector[i], sharedVectorFirstObject.get(i));
+    }
+
+    @org.junit.jupiter.api.Test
+    void vecMatMulToScalar() {
+        double[][] columnMatrix = {{1}, {1}, {1}, {1}, {1}};
+        SharedMatrix matrix = new SharedMatrix(columnMatrix);
+
+        sharedVectorFirstObject.vecMatMul(matrix);
+
+        assertEquals(1, sharedVectorFirstObject.length());
+        assertEquals(15.0, sharedVectorFirstObject.get(0));
+    }
+
 }

@@ -24,6 +24,9 @@ public class LinearAlgebraEngine {
         computationRoot.associativeNesting();
         ComputationNode newNode = computationRoot.findResolvable();
 
+        if(newNode.getNodeType() == ComputationNodeType.MATRIX)
+            return newNode;
+
         while (newNode != null) {
             loadAndCompute(newNode);
             double[][] res = leftMatrix.readRowMajor();

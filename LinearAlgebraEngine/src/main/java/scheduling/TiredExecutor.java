@@ -41,7 +41,7 @@ public class TiredExecutor {
             lazyWorker.newTask(wrappedTask);
         }
         catch(InterruptedException e){
-            Thread.currentThread().interrupt();
+
         }
     }
 
@@ -57,7 +57,6 @@ public class TiredExecutor {
                     inFlight.wait();
                 }
                 catch(InterruptedException e) {
-                    Thread.currentThread().interrupt();
                     break;
                 }
             }

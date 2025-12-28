@@ -92,7 +92,6 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
                 busy.set(false);
             }
             catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
                 break;
             }
         }

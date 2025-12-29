@@ -39,7 +39,7 @@ public class LinearAlgebraEngine {
             executor.shutdown();
         }
         catch(Exception e){
-            // TODO: figure out the meaning of an exception here
+
         }
 
     return result;

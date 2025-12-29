@@ -12,16 +12,20 @@ public class SharedVector {
         // TODO: store vector data and its orientation
         if (vector == null)
             throw new IllegalArgumentException("vector cant be null");
+        writeLock();
         this.vector = vector;
         this.orientation = orientation;
-
+        writeUnlock();
     }
 
     public double get(int index) {
         if (vector.length <= index || index < 0)
             throw new IllegalArgumentException("index out of bounds");
 
-        return vector[index];
+        readLock();
+        double result = vector[index];
+        readUnlock();
+        return result;
     }
 
     public int length() {
@@ -56,38 +60,28 @@ public class SharedVector {
 
     public void transpose() {
         // TODO: transpose vector
+        writeLock();
         if(orientation == VectorOrientation.ROW_MAJOR)
             orientation = VectorOrientation.COLUMN_MAJOR;
         else
             orientation = VectorOrientation.ROW_MAJOR;
+        writeUnlock();
     }
 
     public void add(SharedVector other) {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
-        // TODO: Check about lock order in order to prevent deadlock
         writeLock();
-        other.readLock();
-
-        try {
-            for (int i = 0; i < length(); i++)
-                vector[i] = vector[i] + other.get(i);
-        }
-        finally {
-            writeUnlock();
-            other.readUnlock();
-        }
+        for (int i = 0; i < length(); i++)
+            vector[i] = vector[i] + other.get(i);
+        writeUnlock();
     }
 
     public void negate() {
         writeLock();
-        try {
-            for (int i = 0; i < length(); i++)
-                vector[i] = vector[i] * -1;
-        }
-        finally {
-            writeUnlock();
-        }
+        for (int i = 0; i < length(); i++)
+            vector[i] = vector[i] * -1;
+        writeUnlock();
     }
 
     public double dot(SharedVector other) {
@@ -95,21 +89,14 @@ public class SharedVector {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
 
-        if (orientation != VectorOrientation.ROW_MAJOR || other.getOrientation() != VectorOrientation.COLUMN_MAJOR)
-            throw new IllegalArgumentException("Given vector is not column based");
+        if (orientation == other.orientation)
+            throw new IllegalArgumentException("Vectors are not in the correct orientation");
 
         double output = 0;
         readLock();
-        other.readLock();
-        try {
-            for (int i = 0; i < length(); i++)
-                output += vector[i] * other.get(i);
-        }
-        finally {
-            readUnlock();
-            other.readUnlock();
-        }
-
+        for (int i = 0; i < length(); i++)
+            output += vector[i] * other.get(i);
+        readUnlock();
         return output;
     }
 
@@ -118,30 +105,15 @@ public class SharedVector {
         if(orientation != VectorOrientation.ROW_MAJOR)
             throw new IllegalArgumentException("This vector is not row based");
 
-        synchronized (matrix)
-        {
-            if(matrix.getOrientation() != VectorOrientation.COLUMN_MAJOR)
-                matrix.loadColumnMajor(matrix.readRowMajor());
-        }
+        if(matrix.getOrientation() != VectorOrientation.COLUMN_MAJOR)
+            matrix.loadColumnMajor(matrix.readRowMajor());
 
         double[] newVector = new double[matrix.length()];
-        for(int i = 0 ; i < matrix.length(); i++)
-        {
-            SharedVector vector = matrix.get(i);
-            vector.readLock();
-            try {
-                newVector[i] = dot(vector);
-            }
-            finally {
-                vector.readUnlock();
-            }
-        }
+        for(int i =0 ; i < matrix.length(); i++)
+            newVector[i] = dot(matrix.get(i));
+
         writeLock();
-        try{
-            vector = newVector;
-        }
-        finally {
-            writeUnlock();
-        }
+        vector = newVector;
+        writeUnlock();
     }
 }

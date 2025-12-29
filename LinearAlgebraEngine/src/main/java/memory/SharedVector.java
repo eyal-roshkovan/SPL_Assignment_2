@@ -24,7 +24,7 @@ public class SharedVector {
 
         readLock();
         double result = vector[index];
-        writeUnlock();
+        readUnlock();
         return result;
     }
 

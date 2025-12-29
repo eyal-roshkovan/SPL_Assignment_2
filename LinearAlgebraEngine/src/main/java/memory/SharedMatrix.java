@@ -87,7 +87,7 @@ public class SharedMatrix {
     }
 
     public int length() {
-        if(vectors != null)
+        if(vectors == null)
             throw new NoSuchElementException();
 
         return vectors.length;

@@ -57,6 +57,8 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
      */
     public void newTask(Runnable task) {
        // TODO
+        if(!handoff.offer(task))
+            throw new IllegalStateException("Worker " + id + " is busy");
     }
 
     /**
@@ -65,16 +67,39 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
      */
     public void shutdown() {
        // TODO
+        alive.set(false);
+        newTask(POISON_PILL);
     }
 
     @Override
     public void run() {
        // TODO
+        while (alive.get()) {
+            try {
+                Runnable task = handoff.take();
+                if(task == POISON_PILL)
+                    break;
+
+                busy.set(true);
+                long startTime = System.nanoTime();
+                timeIdle.addAndGet(startTime - idleStartTime.get());
+                task.run();
+
+                long endTime = System.nanoTime();
+                timeUsed.addAndGet(endTime - startTime);
+                idleStartTime.set(System.nanoTime());
+
+                busy.set(false);
+            }
+            catch (InterruptedException e) {
+                break;
+            }
+        }
     }
 
     @Override
     public int compareTo(TiredThread o) {
         // TODO
-        return 0;
+        return Double.compare(this.getFatigue(), o.getFatigue());
     }
 }

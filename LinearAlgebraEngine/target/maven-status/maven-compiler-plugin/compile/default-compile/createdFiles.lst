@@ -10,5 +10,4 @@ parser\ComputationNodeType.class
 parser\OutputWriter$ResultMatrix.class
 memory\SharedMatrix.class
 spl\lae\Main.class
-org\example\Main.class
 memory\SharedVector.class

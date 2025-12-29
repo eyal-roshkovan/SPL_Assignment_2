@@ -1,19 +1,20 @@
 package spl.lae;
 import java.io.IOException;
-
 import parser.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
       // TODO: main
-        InputParser parser = new InputParser();
         try{
-            ComputationNode node = parser.parse("C:\\Users\\eyalr\\Desktop\\Software Engineering\\2nd year\\1st semester\\SPL\\SPL_Assignment_2\\LinearAlgebraEngine\\example.json");
-            System.out.println(node);
+            InputParser parser = new InputParser();
+            ComputationNode tasks =  parser.parse(args[1]);
+            LinearAlgebraEngine engine = new LinearAlgebraEngine(Integer.parseInt(args[0]));
+            ComputationNode result = engine.run(tasks);
+            if(result != null)
+                OutputWriter.write(result.getMatrix(),args[2]);
         }
         catch (Exception e){
-            e.printStackTrace();
+            OutputWriter.write(e.getMessage(), args[2]);
         }
-
     }
 }

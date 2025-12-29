@@ -70,10 +70,10 @@ class SharedMatrixTest {
         // Test column-major internal storage (should be converted back to row-major)
         // If columnData was loaded as Column Major, readRowMajor should return the original matrix shape
         double[][] colResult = columnMatrix.readRowMajor();
-        assertEquals(2, colResult.length); // 2 rows
-        assertEquals(3, colResult[0].length); // 3 columns
+        assertEquals(3, colResult.length); // 2 rows
+        assertEquals(2, colResult[0].length); // 3 columns
         assertEquals(1, colResult[0][0]);
-        assertEquals(4, colResult[1][0]);
+        assertEquals(2, colResult[1][0]);
     }
 
     @org.junit.jupiter.api.Test

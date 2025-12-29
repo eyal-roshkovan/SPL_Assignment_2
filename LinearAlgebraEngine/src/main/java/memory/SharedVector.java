@@ -36,18 +36,22 @@ public class SharedVector {
 
     public void writeLock() {
         // TODO: acquire write lock
+        lock.writeLock().lock();
     }
 
     public void writeUnlock() {
         // TODO: release write lock
+        lock.writeLock().unlock();
     }
 
     public void readLock() {
         // TODO: acquire read lock
+        lock.readLock().lock();
     }
 
     public void readUnlock() {
         // TODO: release read lock
+        lock.readLock().unlock();
     }
 
     public void transpose() {
@@ -61,13 +65,17 @@ public class SharedVector {
     public void add(SharedVector other) {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
+        writeLock();
         for (int i = 0; i < length(); i++)
             vector[i] = vector[i] + other.get(i);
+        writeUnlock();
     }
 
     public void negate() {
+        writeLock();
         for (int i = 0; i < length(); i++)
             vector[i] = vector[i] * -1;
+        writeUnlock();
     }
 
     public double dot(SharedVector other) {
@@ -78,10 +86,12 @@ public class SharedVector {
         if (orientation != VectorOrientation.ROW_MAJOR || other.getOrientation() != VectorOrientation.COLUMN_MAJOR)
             throw new IllegalArgumentException("Given vector is not column based");
 
+
         double output = 0;
+        readLock();
         for (int i = 0; i < length(); i++)
             output += vector[i] * other.get(i);
-
+        readUnlock();
         return output;
     }
 
@@ -89,6 +99,7 @@ public class SharedVector {
         // TODO: compute row-vector × matrix
         if(orientation != VectorOrientation.ROW_MAJOR)
             throw new IllegalArgumentException("This vector is not row based");
+
         if(matrix.getOrientation() != VectorOrientation.COLUMN_MAJOR)
             matrix.loadColumnMajor(matrix.readRowMajor());
 

@@ -14,14 +14,20 @@ class SharedVectorTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        sharedVectorFirstObject = new SharedVector(firstVector, VectorOrientation.ROW_MAJOR);
-        sharedVectorSecondObject = new SharedVector(secondVector, VectorOrientation.ROW_MAJOR);
-        sharedVectorThirdObject = new SharedVector(thirdVector, VectorOrientation.COLUMN_MAJOR);
-        sharedVectorFourthObject = new SharedVector(fourthVector, VectorOrientation.ROW_MAJOR);
+        sharedVectorFirstObject = new SharedVector(copyArray(firstVector), VectorOrientation.ROW_MAJOR);
+        sharedVectorSecondObject = new SharedVector(copyArray(secondVector), VectorOrientation.ROW_MAJOR);
+        sharedVectorThirdObject = new SharedVector(copyArray(thirdVector), VectorOrientation.COLUMN_MAJOR);
+        sharedVectorFourthObject = new SharedVector(copyArray(fourthVector), VectorOrientation.ROW_MAJOR);
     }
 
     @org.junit.jupiter.api.AfterEach
     void tearDown() {
+    }
+
+    double[] copyArray(double[] array) {
+        double[] copyArray = new double[array.length];
+        System.arraycopy(array, 0, copyArray, 0, array.length);
+        return copyArray;
     }
 
     @org.junit.jupiter.api.Test
@@ -102,26 +108,21 @@ class SharedVectorTest {
         assertDoesNotThrow(() -> sharedVectorThirdObject.negate());
         assertDoesNotThrow(() -> sharedVectorFourthObject.negate());
 
-        int index = 1;
-        for (int i = 0; i < firstVector.length; i++) {
-            assertEquals(-index, sharedVectorFirstObject.get(i));
-            index++;
-        }
+        for (int i = 0; i < firstVector.length; i++)
+            assertEquals(-firstVector[i], sharedVectorFirstObject.get(i));
 
-        for (int i = 0; i < secondVector.length; i++) {
-            assertEquals(-index, sharedVectorSecondObject.get(i));
-            index++;
-        }
 
-        for (int i = 0; i < thirdVector.length; i++) {
-            assertEquals(-index, sharedVectorThirdObject.get(i));
-            index++;
-        }
+        for (int i = 0; i < secondVector.length; i++)
+            assertEquals(-secondVector[i], sharedVectorSecondObject.get(i));
 
-        for (int i = 0; i < fourthVector.length; i++) {
-            assertEquals(-index, sharedVectorFourthObject.get(i));
-            index++;
-        }
+
+        for (int i = 0; i < thirdVector.length; i++)
+            assertEquals(-thirdVector[i], sharedVectorThirdObject.get(i));
+
+
+        for (int i = 0; i < fourthVector.length; i++)
+            assertEquals(-fourthVector[i], sharedVectorFourthObject.get(i));
+
     }
 
     @org.junit.jupiter.api.Test
@@ -136,9 +137,8 @@ class SharedVectorTest {
         for (int i = 0; i < secondVector.length; i++)
             secondMulRes += secondVector[i] * thirdVector[i];
 
-        for (int i = 0; i < secondVector.length ;i++){
+        for (int i = 0; i < secondVector.length ;i++)
             thirdMulRes += secondVector[i] * firstVector[i];
-        }
 
         assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.dot(sharedVectorFourthObject));
         assertThrows(IllegalArgumentException.class, () -> sharedVectorSecondObject.dot(sharedVectorFourthObject));

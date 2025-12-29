@@ -1,7 +1,5 @@
 package spl.lae;
 import java.io.IOException;
-import java.text.ParseException;
-
 import parser.*;
 
 public class Main {

@@ -51,6 +51,7 @@ public class SharedMatrix {
             acquireAllVectorReadLocks(vectors);
             for(SharedVector v : vectors)
             {
+                v.readLock();
                 matrix[row] = new double[v.length()];
                 for(int col = 0; col < v.length(); col++)
                     matrix[row][col] = v.get(col);

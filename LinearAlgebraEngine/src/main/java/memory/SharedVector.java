@@ -12,16 +12,20 @@ public class SharedVector {
         // TODO: store vector data and its orientation
         if (vector == null)
             throw new IllegalArgumentException("vector cant be null");
+        writeLock();
         this.vector = vector;
         this.orientation = orientation;
-
+        writeUnlock();
     }
 
     public double get(int index) {
         if (vector.length <= index || index < 0)
             throw new IllegalArgumentException("index out of bounds");
 
-        return vector[index];
+        readLock();
+        double result = vector[index];
+        writeUnlock();
+        return result;
     }
 
     public int length() {
@@ -56,10 +60,12 @@ public class SharedVector {
 
     public void transpose() {
         // TODO: transpose vector
+        writeLock();
         if(orientation == VectorOrientation.ROW_MAJOR)
             orientation = VectorOrientation.COLUMN_MAJOR;
         else
             orientation = VectorOrientation.ROW_MAJOR;
+        writeUnlock();
     }
 
     public void add(SharedVector other) {
@@ -83,9 +89,8 @@ public class SharedVector {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
 
-        if (orientation != VectorOrientation.ROW_MAJOR || other.getOrientation() != VectorOrientation.COLUMN_MAJOR)
-            throw new IllegalArgumentException("Given vector is not column based");
-
+        if (orientation == other.orientation)
+            throw new IllegalArgumentException("Vectors are not in the correct orientation");
 
         double output = 0;
         readLock();

@@ -31,11 +31,20 @@ public class TiredExecutor {
                     task.run();
                 }
                 finally {
-                    idleMinHeap.offer(lazyWorker);
+                    // idleMinHeap.offer(lazyWorker);
+                    Runnable addBack = () -> {
+                        try {
+                            idleMinHeap.offer(lazyWorker);
+                        }
+                        catch (IllegalStateException e){
+
+                        }
+                    };
                     synchronized (inFlight) {
                         if(inFlight.decrementAndGet() == 0)
                             inFlight.notifyAll();
                     }
+                    lazyWorker.newTask(addBack);
                 }
             };
             lazyWorker.newTask(wrappedTask);
@@ -66,13 +75,21 @@ public class TiredExecutor {
 
     public void shutdown() throws InterruptedException {
         // TODO
+        double sum = 0;
+        double avg = 0;
+        double fairness = 0;
         for (TiredThread worker : workers)
             worker.shutdown();
 
-
-
-        for (TiredThread worker : workers)
+        for (TiredThread worker : workers) {
             worker.join();
+            sum += worker.getFatigue();
+        }
+        avg = sum / workers.length;
+        for(TiredThread worker : workers)
+            fairness += Math.pow(worker.getFatigue() - avg, 2);
+
+        System.out.println("Fairness: " + fairness);
     }
 
     public synchronized String getWorkerReport() {

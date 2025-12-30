@@ -37,6 +37,7 @@ public class LinearAlgebraEngine {
         }
         try{
             executor.shutdown();
+            System.out.println(getWorkerReport());
         }
         catch(Exception e){
             // TODO: figure out the meaning of an exception here

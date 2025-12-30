@@ -22,24 +22,34 @@ public class SharedMatrix {
     public void loadRowMajor(double[][] matrix) {
         if(matrix == null)
             throw new NullPointerException("matrix is null");
+        acquireAllVectorWriteLocks(vectors);
 
-        vectors = new SharedVector[matrix.length];
+        SharedVector[] newVector = new SharedVector[matrix.length];
         for (int i = 0; i < matrix.length; i++)
-            vectors[i] = new SharedVector(matrix[i], VectorOrientation.ROW_MAJOR);
+            newVector[i] = new SharedVector(matrix[i], VectorOrientation.ROW_MAJOR);
+
+        SharedVector[] oldVector = vectors;
+        vectors = newVector;
+        releaseAllVectorWriteLocks(oldVector);
     }
 
     public void loadColumnMajor(double[][] matrix) {
         if (matrix == null)
             throw new NullPointerException("matrix is null");
 
-        vectors = new SharedVector[matrix[0].length];
-        for (int col = 0; col < vectors.length; col++) {
-            double[] column = new double[matrix.length];
+        acquireAllVectorWriteLocks(vectors);
+        SharedVector[] newVector = new SharedVector[matrix.length];
+
+        for (int col = 0; col < matrix[0].length ; col++) {
+            double[] column = new double[matrix[0].length];
             for (int row = 0; row < matrix.length ; row++ ){
                 column[row] = matrix[row][col];
             }
-            vectors[col] = new SharedVector(column, VectorOrientation.COLUMN_MAJOR);
+            newVector[col] = new SharedVector(column, VectorOrientation.COLUMN_MAJOR);
         }
+        SharedVector[] oldVector = vectors;
+        vectors = newVector;
+        releaseAllVectorWriteLocks(oldVector);
     }
 
     public double[][] readRowMajor() {

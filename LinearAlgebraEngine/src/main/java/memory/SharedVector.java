@@ -71,6 +71,8 @@ public class SharedVector {
     public void add(SharedVector other) {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
+        if (orientation !=  other.orientation)
+            throw new IllegalArgumentException("Vectors are not in the correct orientation");
         writeLock();
         for (int i = 0; i < length(); i++)
             vector[i] = vector[i] + other.get(i);
@@ -89,13 +91,13 @@ public class SharedVector {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
 
-        if (orientation == other.orientation)
+        if (orientation != VectorOrientation.ROW_MAJOR || other.orientation!= VectorOrientation.COLUMN_MAJOR)
             throw new IllegalArgumentException("Vectors are not in the correct orientation");
-
         double output = 0;
         readLock();
         for (int i = 0; i < length(); i++)
             output += vector[i] * other.get(i);
+
         readUnlock();
         return output;
     }
@@ -106,7 +108,7 @@ public class SharedVector {
             throw new IllegalArgumentException("This vector is not row based");
 
         if(matrix.getOrientation() != VectorOrientation.COLUMN_MAJOR)
-            matrix.loadColumnMajor(matrix.readRowMajor());
+            throw new IllegalArgumentException("This matrix is not column based");
 
         double[] newVector = new double[matrix.length()];
         for(int i =0 ; i < matrix.length(); i++)

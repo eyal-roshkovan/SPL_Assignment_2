@@ -89,7 +89,6 @@ public class SharedMatrix {
 
 
     public SharedVector get(int index) {
-        // TODO: return vector at index
         if(length() <= index || index < 0)
             throw new IndexOutOfBoundsException("index out of bounds");
 
@@ -104,12 +103,10 @@ public class SharedMatrix {
     }
 
     public VectorOrientation getOrientation() {
-        // TODO: return orientation
         return vectors[0].getOrientation();
     }
 
     private void acquireAllVectorReadLocks(SharedVector[] vecs) {
-        // TODO: acquire read lock for each vector
         if (vecs == null)
             return;
 
@@ -118,7 +115,6 @@ public class SharedMatrix {
     }
 
     private void releaseAllVectorReadLocks(SharedVector[] vecs) {
-        // TODO: release read locks
         if (vecs == null)
             return;
 
@@ -127,7 +123,6 @@ public class SharedMatrix {
     }
 
     private void acquireAllVectorWriteLocks(SharedVector[] vecs) {
-        // TODO: acquire write lock for each vector
         if (vecs == null)
             return;
 
@@ -136,7 +131,6 @@ public class SharedMatrix {
     }
 
     private void releaseAllVectorWriteLocks(SharedVector[] vecs) {
-        // TODO: release write locks
         if (vecs == null)
             return;
         for(SharedVector v : vecs)

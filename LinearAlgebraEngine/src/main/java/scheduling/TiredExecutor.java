@@ -12,7 +12,6 @@ public class TiredExecutor {
     private final AtomicInteger inFlight = new AtomicInteger(0);
 
     public TiredExecutor(int numThreads) {
-        // TODO
         workers = new TiredThread[numThreads];
         for (int i = 0; i < numThreads; i++) {
             workers[i] = new TiredThread(i, Math.random() + 0.5);
@@ -22,7 +21,6 @@ public class TiredExecutor {
     }
 
     public void submit(Runnable task) {
-        // TODO
         try{
             TiredThread lazyWorker = idleMinHeap.take();
             inFlight.incrementAndGet();
@@ -53,7 +51,6 @@ public class TiredExecutor {
     }
 
     public void submitAll(Iterable<Runnable> tasks) {
-        // TODO: submit tasks one by one and wait until all finish
         for (Runnable task : tasks) {
             submit(task);
         }
@@ -72,7 +69,6 @@ public class TiredExecutor {
     }
 
     public void shutdown() throws InterruptedException {
-        // TODO
         double sum = 0;
         double avg = 0;
         double fairness = 0;
@@ -89,23 +85,6 @@ public class TiredExecutor {
 
         System.out.println("Fairness: " + fairness);
     }
-    /*
-    public synchronized String getWorkerReport() {
-        // TODO: return readable statistics for each worker
-        StringBuilder report = new StringBuilder();
-        report.append("Worker Activity Report:\n");
-        for(TiredThread worker : workers){
-            report.append(String.format(
-                    "Worker %d: Fatigue=%.2f, Time Used=%d ns, Time Idle=%d ns\n",
-                    worker.getWorkerId(),
-                    worker.getFatigue(),
-                    worker.getTimeUsed(),
-                    worker.getTimeIdle()
-            ));
-        }
-        return report.toString();
-    }
-     */
 
     public synchronized String getWorkerReport() {
         // return readable statistics for each worker

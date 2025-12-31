@@ -18,9 +18,7 @@ public class LinearAlgebraEngine {
     }
 
     public ComputationNode run(ComputationNode computationRoot) {
-        // TODO: resolve computation tree step by step until final matrix is produced
         ComputationNode result = null;
-        // TODO: wait for clarification on the "only matrix" input
         if(computationRoot.getNodeType() == ComputationNodeType.MATRIX)
             return computationRoot;
 
@@ -40,15 +38,13 @@ public class LinearAlgebraEngine {
             executor.shutdown();
         }
         catch(Exception e){
-            // TODO: figure out the meaning of an exception here
+
         }
 
     return result;
     }
 
     public void loadAndCompute(ComputationNode node) {
-        // TODO: load operand matrices
-        // TODO: create compute tasks & submit tasks to executor
         ComputationNodeType type = node.getNodeType();
         List<Runnable> tasks = null;
         List<ComputationNode> children = node.getChildren();
@@ -93,7 +89,6 @@ public class LinearAlgebraEngine {
     }
 
     public List<Runnable> createAddTasks() {
-        // TODO: return tasks that perform row-wise addition
         int row = leftMatrix.getRowsCount();
         int col = leftMatrix.getColsCount();
         if(row != rightMatrix.getRowsCount() || col != rightMatrix.getColsCount())
@@ -116,7 +111,6 @@ public class LinearAlgebraEngine {
     }
 
     public List<Runnable> createMultiplyTasks() {
-        // TODO: return tasks that perform row × matrix multiplication
         int row = leftMatrix.getRowsCount();
         if(leftMatrix.getColsCount() != rightMatrix.getRowsCount())
             throw new IllegalArgumentException("The dimensions are not compatible");
@@ -134,7 +128,6 @@ public class LinearAlgebraEngine {
     }
 
     public List<Runnable> createNegateTasks() {
-        // TODO: return tasks that negate rows
         int row = leftMatrix.getRowsCount();
         List<Runnable> tasks = new ArrayList<>();
 
@@ -150,7 +143,6 @@ public class LinearAlgebraEngine {
     }
 
     public List<Runnable> createTransposeTasks() {
-        // TODO: return tasks that transpose rows
         int row = leftMatrix.getRowsCount();
         List<Runnable> tasks = new ArrayList<>();
 
@@ -166,7 +158,6 @@ public class LinearAlgebraEngine {
     }
 
     public String getWorkerReport() {
-        // TODO: return summary of worker activity
         return executor.getWorkerReport();
     }
 }

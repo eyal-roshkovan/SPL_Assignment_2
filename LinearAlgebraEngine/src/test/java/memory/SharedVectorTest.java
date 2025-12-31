@@ -1,5 +1,8 @@
 package memory;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 class SharedVectorTest {
     double[] firstVector = {1, 2, 3, 4, 5};
@@ -12,7 +15,7 @@ class SharedVectorTest {
     SharedVector sharedVectorThirdObject;
     SharedVector sharedVectorFourthObject;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         sharedVectorFirstObject = new SharedVector(copyArray(firstVector), VectorOrientation.ROW_MAJOR);
         sharedVectorSecondObject = new SharedVector(copyArray(secondVector), VectorOrientation.ROW_MAJOR);
@@ -20,9 +23,6 @@ class SharedVectorTest {
         sharedVectorFourthObject = new SharedVector(copyArray(fourthVector), VectorOrientation.ROW_MAJOR);
     }
 
-    @org.junit.jupiter.api.AfterEach
-    void tearDown() {
-    }
 
     double[] copyArray(double[] array) {
         double[] copyArray = new double[array.length];
@@ -30,7 +30,7 @@ class SharedVectorTest {
         return copyArray;
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void get() {
         for (int i = 0; i < firstVector.length; i++)
             assertEquals(firstVector[i], sharedVectorFirstObject.get(i));
@@ -45,7 +45,7 @@ class SharedVectorTest {
             assertEquals(fourthVector[i], sharedVectorFourthObject.get(i));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void length() {
         assertEquals(firstVector.length, sharedVectorFirstObject.length());
         assertEquals(secondVector.length, sharedVectorSecondObject.length());
@@ -53,7 +53,7 @@ class SharedVectorTest {
         assertEquals(fourthVector.length, sharedVectorFourthObject.length());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getOrientation() {
         assertEquals(VectorOrientation.ROW_MAJOR, sharedVectorFirstObject.getOrientation());
         assertEquals(VectorOrientation.ROW_MAJOR, sharedVectorSecondObject.getOrientation());
@@ -61,23 +61,23 @@ class SharedVectorTest {
         assertEquals(VectorOrientation.ROW_MAJOR, sharedVectorFourthObject.getOrientation());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void writeLock() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void writeUnlock() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void readLock() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void readUnlock() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void transpose() {
         sharedVectorFirstObject.transpose();
         sharedVectorSecondObject.transpose();
@@ -90,7 +90,7 @@ class SharedVectorTest {
         assertEquals(VectorOrientation.COLUMN_MAJOR, sharedVectorFourthObject.getOrientation());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void add() {
         assertDoesNotThrow(() -> sharedVectorFirstObject.add(sharedVectorSecondObject));
         for (int i = 0; i < firstVector.length; i++)
@@ -101,7 +101,7 @@ class SharedVectorTest {
         assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.add(sharedVectorFourthObject)); // not same length
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void negate() {
         assertDoesNotThrow(() -> sharedVectorFirstObject.negate());
         assertDoesNotThrow(() -> sharedVectorSecondObject.negate());
@@ -125,7 +125,7 @@ class SharedVectorTest {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void dot() {
         double firstMulRes = 0;
         double secondMulRes = 0;
@@ -151,7 +151,7 @@ class SharedVectorTest {
         assertEquals(thirdMulRes, sharedVectorSecondObject.dot(sharedVectorFirstObject));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void vecMatMul() {
         // First Test Case
         double[][] firstMulMatrix = {{1, 6}, {2, 7}, {3, 8}, {4, 9}, {5, 10}};
@@ -169,7 +169,7 @@ class SharedVectorTest {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void vecMatMulDimensionMismatch() {
         // Vector is 1x5
         double[][] matrixData = {
@@ -184,7 +184,7 @@ class SharedVectorTest {
         }, "Should throw exception when vector columns != matrix rows");
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void vecMatMulWrongOrientation() {
         // sharedVectorThirdObject is COLUMN_MAJOR (5x1)
         double[][] matrixData = {{1, 1}, {1, 1}, {1, 1}, {1, 1}, {1, 1}}; // 5x2
@@ -195,7 +195,7 @@ class SharedVectorTest {
         }, "Cannot multiply a COLUMN_MAJOR vector by a matrix (v*A)");
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void vecMatMulIdentity() {
         double[][] identityData = {
                 {1, 0, 0, 0, 0},
@@ -213,7 +213,7 @@ class SharedVectorTest {
             assertEquals(firstVector[i], sharedVectorFirstObject.get(i));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void vecMatMulToScalar() {
         double[][] columnMatrix = {{1}, {1}, {1}, {1}, {1}};
         SharedMatrix matrix = new SharedMatrix(columnMatrix);

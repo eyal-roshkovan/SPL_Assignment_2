@@ -21,7 +21,7 @@ class SharedMatrixTest {
     SharedMatrix columnMatrix;
     SharedMatrix emptyMatrix;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         rowMatrix = new SharedMatrix(rowData); // Should default to row-major logic
         columnMatrix = new SharedMatrix();
@@ -29,7 +29,7 @@ class SharedMatrixTest {
         emptyMatrix = new SharedMatrix();
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void loadRowMajor() {
         double[][] newData = {{10, 20}, {30, 40}, {50, 60}};
         rowMatrix.loadRowMajor(newData);
@@ -40,7 +40,7 @@ class SharedMatrixTest {
         assertEquals(60, rowMatrix.get(2).get(1));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void loadColumnMajor() {
         // loading 3x2 column data should result in 2 vectors of length 3
         double[][] newData = {
@@ -59,7 +59,7 @@ class SharedMatrixTest {
         assertEquals(5, columnMatrix.get(0).get(2));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void readRowMajor() {
         // Test row-major internal storage
         double[][] rowResult = rowMatrix.readRowMajor();
@@ -76,7 +76,7 @@ class SharedMatrixTest {
         assertEquals(2, colResult[1][0]);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void get() {
         SharedVector v0 = rowMatrix.get(0);
         SharedVector v1 = rowMatrix.get(1);
@@ -90,14 +90,14 @@ class SharedMatrixTest {
         assertThrows(IndexOutOfBoundsException.class, () -> rowMatrix.get(-1));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void length() {
         assertEquals(2, rowMatrix.length());
         assertEquals(3, columnMatrix.length());
         assertEquals(0, emptyMatrix.length());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getOrientation() {
         assertEquals(VectorOrientation.ROW_MAJOR, rowMatrix.getOrientation());
         assertEquals(VectorOrientation.COLUMN_MAJOR, columnMatrix.getOrientation());

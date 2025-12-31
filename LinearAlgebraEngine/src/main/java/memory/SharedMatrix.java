@@ -68,7 +68,7 @@ public class SharedMatrix {
             {
                 for(int row = 0; row < v.length(); row++)
                 {
-                    matrix[row][col] = v.get(col);
+                    matrix[row][col] = v.get(row);
                 }
                 col++;
             }

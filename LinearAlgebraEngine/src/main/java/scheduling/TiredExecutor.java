@@ -91,7 +91,7 @@ public class TiredExecutor {
 
         System.out.println("Fairness: " + fairness);
     }
-
+    /*
     public synchronized String getWorkerReport() {
         // TODO: return readable statistics for each worker
         StringBuilder report = new StringBuilder();
@@ -106,5 +106,31 @@ public class TiredExecutor {
             ));
         }
         return report.toString();
+    }
+     */
+
+    public synchronized String getWorkerReport() {
+        // return readable statistics for each worker
+        StringBuilder ret = new StringBuilder();
+        for(TiredThread worker: workers){
+            String report = String.format("Worker %d: Time Used = %d ns, Time Idle = %d ns, Fatigue = %,2f\n",
+                    worker.getWorkerId(),
+                    worker.getTimeUsed(),
+                    worker.getTimeIdle(),
+                    worker.getFatigue());
+            ret.append(report);
+        }
+        double averageFatigue = 0.0;
+        for(TiredThread worker: workers){
+            averageFatigue += worker.getFatigue();
+        }
+        averageFatigue /= workers.length;
+        ret.append(String.format("Average Fatigue: %.2f\n", averageFatigue));
+        double fairness = 0.0;
+        for(TiredThread worker: workers){
+            fairness += Math.pow(worker.getFatigue() - averageFatigue, 2);
+        }
+        ret.append("Fairness value: " + String.format("%.2f\n", fairness));
+        return ret.toString();
     }
 }

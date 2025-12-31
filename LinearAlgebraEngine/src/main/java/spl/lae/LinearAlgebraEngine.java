@@ -36,8 +36,8 @@ public class LinearAlgebraEngine {
             newNode = computationRoot.findResolvable();
         }
         try{
-            executor.shutdown();
             System.out.println(getWorkerReport());
+            executor.shutdown();
         }
         catch(Exception e){
             // TODO: figure out the meaning of an exception here
@@ -60,20 +60,33 @@ public class LinearAlgebraEngine {
 
         if(children.size() == 2)
          matrix2 = children.get(1).getMatrix();
+        try{
 
-        if (type == ComputationNodeType.MULTIPLY) {
-            rightMatrix.loadColumnMajor(matrix2);
-            tasks = createMultiplyTasks();
-        }
-        else if (type == ComputationNodeType.ADD) {
-            rightMatrix.loadRowMajor(matrix2);
-            tasks = createAddTasks();
-        }
-        else if (type == ComputationNodeType.NEGATE)
-            tasks = createNegateTasks();
+            if (type == ComputationNodeType.MULTIPLY && children.size() == 2) {
+                rightMatrix.loadColumnMajor(matrix2);
+                tasks = createMultiplyTasks();
+            }
+            else if (type == ComputationNodeType.ADD && children.size() == 2) {
+                rightMatrix.loadRowMajor(matrix2);
+                tasks = createAddTasks();
+            }
+            else if (type == ComputationNodeType.NEGATE && children.size() == 1)
+                tasks = createNegateTasks();
 
-        else if (type == ComputationNodeType.TRANSPOSE)
-            tasks = createTransposeTasks();
+            else if (type == ComputationNodeType.TRANSPOSE && children.size() == 1)
+                tasks = createTransposeTasks();
+            else
+                throw new IllegalArgumentException("Incorrect number of operands");
+        }
+        catch(Exception e){
+            try{
+                executor.shutdown();
+            }
+            catch(Exception e1){
+
+            }
+            throw e;
+        }
 
         this.executor.submitAll(tasks);
 

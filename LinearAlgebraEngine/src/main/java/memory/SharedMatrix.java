@@ -25,7 +25,6 @@ public class SharedMatrix {
 
         acquireAllVectorWriteLocks(vectors);
         SharedVector[] newVectors = new SharedVector[matrix.length];
-        // vectors = new SharedVector[matrix.length];
         for (int i = 0; i < newVectors.length; i++)
             newVectors[i] = new SharedVector(matrix[i], VectorOrientation.ROW_MAJOR);
 

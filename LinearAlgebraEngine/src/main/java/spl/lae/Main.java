@@ -15,9 +15,7 @@ public class Main {
         }
         catch (Exception e){
             OutputWriter.write(e.getMessage(), args[2]);
-            System.err.println(e.getMessage());
             System.exit(1);
-
         }
     }
 }

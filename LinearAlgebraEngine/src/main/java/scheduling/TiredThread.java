@@ -61,6 +61,27 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
             throw new IllegalStateException("Worker " + id + " is busy");
     }
 
+    public void addTimeIdle(long timeIdle){
+        this.timeIdle.addAndGet(timeIdle);
+    }
+
+    public void addTimeUsed(long timeUsed){
+        this.timeUsed.addAndGet(timeUsed);
+    }
+
+    public void setBusy(boolean busy) {
+        this.busy.set(busy);
+    }
+
+    public void setIdleStartTime(long idleStartTime) {
+        this.idleStartTime.set(idleStartTime);
+    }
+
+    public long getIdleStartTime(){
+        return idleStartTime.get();
+    }
+
+
     /**
      * Request this worker to stop after finishing current task.
      * Inserts a poison pill so the worker wakes up and exits.
@@ -80,16 +101,8 @@ public class TiredThread extends Thread implements Comparable<TiredThread> {
                 if(task == POISON_PILL)
                     break;
 
-                busy.set(true);
-                long startTime = System.nanoTime();
-                timeIdle.addAndGet(startTime - idleStartTime.get());
                 task.run();
 
-                long endTime = System.nanoTime();
-                timeUsed.addAndGet(endTime - startTime);
-                idleStartTime.set(System.nanoTime());
-
-                busy.set(false);
             }
             catch (InterruptedException e) {
                 break;

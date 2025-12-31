@@ -27,24 +27,22 @@ public class TiredExecutor {
             TiredThread lazyWorker = idleMinHeap.take();
             inFlight.incrementAndGet();
             Runnable wrappedTask = ()->{
+                long startTime = System.nanoTime();
+                lazyWorker.addTimeIdle(startTime - lazyWorker.getIdleStartTime());
                 try{
+                    lazyWorker.setBusy(true);
                     task.run();
                 }
                 finally {
-                    // idleMinHeap.offer(lazyWorker);
-                    Runnable addBack = () -> {
-                        try {
-                            idleMinHeap.offer(lazyWorker);
-                        }
-                        catch (IllegalStateException e){
-
-                        }
-                    };
+                    long endTime = System.nanoTime();
+                    lazyWorker.addTimeUsed(endTime - startTime);
+                    lazyWorker.setIdleStartTime(endTime);
+                    lazyWorker.setBusy(false);
+                    idleMinHeap.offer(lazyWorker);
                     synchronized (inFlight) {
                         if(inFlight.decrementAndGet() == 0)
                             inFlight.notifyAll();
                     }
-                    lazyWorker.newTask(addBack);
                 }
             };
             lazyWorker.newTask(wrappedTask);

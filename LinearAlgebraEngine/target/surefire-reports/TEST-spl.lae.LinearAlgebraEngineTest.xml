@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="spl.lae.LinearAlgebraEngineTest" time="0.019" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="spl.lae.LinearAlgebraEngineTest" time="0.017" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\jbr\bin"/>
-    <property name="sun.java.command" value="C:\Users\eyalr\AppData\Local\Temp\surefire10098556372910829163\surefirebooter-20260101214351216_3.jar C:\Users\eyalr\AppData\Local\Temp\surefire10098556372910829163 2026-01-01T21-43-51_125-jvmRun1 surefire-20260101214351216_1tmp surefire_0-20260101214351216_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\eyalr\AppData\Local\Temp\surefire10528106391399078680\surefirebooter-20260101214833999_3.jar C:\Users\eyalr\AppData\Local\Temp\surefire10528106391399078680 2026-01-01T21-48-33_895-jvmRun1 surefire-20260101214833999_1tmp surefire_0-20260101214833999_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\test-classes;C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\classes;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\eyalr\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.1\jackson-databind-2.17.1.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.1\jackson-annotations-2.17.1.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.1\jackson-core-2.17.1.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="intellij.os.virtualization" value="none"/>
     <property name="jbr.virtualization.information" value="Hyper-V role"/>
-    <property name="surefire.real.class.path" value="C:\Users\eyalr\AppData\Local\Temp\surefire10098556372910829163\surefirebooter-20260101214351216_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\eyalr\AppData\Local\Temp\surefire10528106391399078680\surefirebooter-20260101214833999_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.4+13-b509.26"/>
@@ -61,51 +61,51 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testNegationAndTranspose" classname="spl.lae.LinearAlgebraEngineTest" time="0.006">
-    <system-out><![CDATA[Worker 0: Time Used = 12500 ns, Time Idle = 4185600 ns, Fatigue = 9,505.291307
+  <testcase name="testNegationAndTranspose" classname="spl.lae.LinearAlgebraEngineTest" time="0.002">
+    <system-out><![CDATA[Worker 0: Time Used = 15700 ns, Time Idle = 2062000 ns, Fatigue = 15,052.789427
 Worker 1: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
 Worker 2: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
-Worker 3: Time Used = 12600 ns, Time Idle = 3874300 ns, Fatigue = 18,437.901052
-Average Fatigue: 6985.80
-Fairness value: 235101258.24
+Worker 3: Time Used = 16000 ns, Time Idle = 2116600 ns, Fatigue = 13,405.826560
+Average Fatigue: 7114.65
+Fairness value: 203829449.31
 
-Fairness: 2.3510125824130082E8
+Fairness: 2.0382944930744445E8
 ]]></system-out>
   </testcase>
-  <testcase name="testSimpleAddition" classname="spl.lae.LinearAlgebraEngineTest" time="0.0">
-    <system-out><![CDATA[Worker 0: Time Used = 9600 ns, Time Idle = 1337400 ns, Fatigue = 6,929.074019
+  <testcase name="testSimpleAddition" classname="spl.lae.LinearAlgebraEngineTest" time="0.004">
+    <system-out><![CDATA[Worker 0: Time Used = 28800 ns, Time Idle = 1089500 ns, Fatigue = 40,664.669420
 Worker 1: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
 Worker 2: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
-Worker 3: Time Used = 24000 ns, Time Idle = 958600 ns, Fatigue = 14,033.373704
-Average Fatigue: 5240.61
-Fairness value: 135091590.64
+Worker 3: Time Used = 23700 ns, Time Idle = 855700 ns, Fatigue = 25,267.653613
+Average Fatigue: 16483.08
+Fairness value: 1205301853.02
 
-Fairness: 1.3509159063738522E8
+Fairness: 1.2053018530170088E9
 ]]></system-out>
   </testcase>
-  <testcase name="testDeepTreeResolution" classname="spl.lae.LinearAlgebraEngineTest" time="0.008">
-    <system-out><![CDATA[Worker 0: Time Used = 72400 ns, Time Idle = 2007800 ns, Fatigue = 41,992.164544
-Worker 1: Time Used = 57200 ns, Time Idle = 1476600 ns, Fatigue = 71,563.155214
-Worker 2: Time Used = 31000 ns, Time Idle = 1591800 ns, Fatigue = 35,300.731419
-Worker 3: Time Used = 37700 ns, Time Idle = 801900 ns, Fatigue = 44,972.698340
-Average Fatigue: 48457.19
-Fairness value: 760916267.16
+  <testcase name="testDeepTreeResolution" classname="spl.lae.LinearAlgebraEngineTest" time="0.002">
+    <system-out><![CDATA[Worker 0: Time Used = 86300 ns, Time Idle = 799100 ns, Fatigue = 106,319.890132
+Worker 1: Time Used = 10200 ns, Time Idle = 1013100 ns, Fatigue = 7,545.046526
+Worker 2: Time Used = 22800 ns, Time Idle = 945800 ns, Fatigue = 16,843.964157
+Worker 3: Time Used = 23000 ns, Time Idle = 603900 ns, Fatigue = 18,139.629345
+Average Fatigue: 37212.13
+Fairness value: 6434640813.38
 
-Fairness: 7.609162671578833E8
+Fairness: 6.434640813383013E9
 ]]></system-out>
   </testcase>
-  <testcase name="testAssociativeNestingIntegration" classname="spl.lae.LinearAlgebraEngineTest" time="0.0">
-    <system-out><![CDATA[Worker 0: Time Used = 18800 ns, Time Idle = 1019600 ns, Fatigue = 23,061.543412
+  <testcase name="testAssociativeNestingIntegration" classname="spl.lae.LinearAlgebraEngineTest" time="0.003">
+    <system-out><![CDATA[Worker 0: Time Used = 14900 ns, Time Idle = 661800 ns, Fatigue = 20,463.051578
 Worker 1: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
 Worker 2: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
-Worker 3: Time Used = 14000 ns, Time Idle = 615800 ns, Fatigue = 7,247.452183
-Average Fatigue: 7577.25
-Fairness value: 354701544.18
+Worker 3: Time Used = 20500 ns, Time Idle = 428000 ns, Fatigue = 19,788.755661
+Average Fatigue: 10062.95
+Fairness value: 405279334.00
 
-Fairness: 3.547015441822094E8
+Fairness: 4.052793340002908E8
 ]]></system-out>
   </testcase>
-  <testcase name="testMatrixOnlyInput" classname="spl.lae.LinearAlgebraEngineTest" time="0.005">
+  <testcase name="testMatrixOnlyInput" classname="spl.lae.LinearAlgebraEngineTest" time="0.002">
     <system-out><![CDATA[Worker 0: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
 Worker 1: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
 Worker 2: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000

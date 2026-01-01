@@ -9,13 +9,10 @@ public class SharedVector {
     private ReadWriteLock lock = new java.util.concurrent.locks.ReentrantReadWriteLock();
 
     public SharedVector(double[] vector, VectorOrientation orientation) {
-        // TODO: store vector data and its orientation
         if (vector == null)
             throw new IllegalArgumentException("vector cant be null");
-        writeLock();
         this.vector = vector;
         this.orientation = orientation;
-        writeUnlock();
     }
 
     public double get(int index) {
@@ -29,37 +26,30 @@ public class SharedVector {
     }
 
     public int length() {
-        // TODO: return vector length
         return vector.length;
     }
 
     public VectorOrientation getOrientation() {
-        // TODO: return vector orientation
         return orientation;
     }
 
     public void writeLock() {
-        // TODO: acquire write lock
         lock.writeLock().lock();
     }
 
     public void writeUnlock() {
-        // TODO: release write lock
         lock.writeLock().unlock();
     }
 
     public void readLock() {
-        // TODO: acquire read lock
         lock.readLock().lock();
     }
 
     public void readUnlock() {
-        // TODO: release read lock
         lock.readLock().unlock();
     }
 
     public void transpose() {
-        // TODO: transpose vector
         writeLock();
         if(orientation == VectorOrientation.ROW_MAJOR)
             orientation = VectorOrientation.COLUMN_MAJOR;
@@ -89,7 +79,6 @@ public class SharedVector {
     }
 
     public double dot(SharedVector other) {
-        // TODO: compute dot product (row · column)
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
 
@@ -105,7 +94,6 @@ public class SharedVector {
     }
 
     public void vecMatMul(SharedMatrix matrix) {
-        // TODO: compute row-vector × matrix
         if(orientation != VectorOrientation.ROW_MAJOR)
             throw new IllegalArgumentException("This vector is not row based");
 

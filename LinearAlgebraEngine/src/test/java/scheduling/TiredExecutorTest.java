@@ -35,8 +35,7 @@ class TiredExecutorTest {
                 try {
                     Thread.sleep(100); // Simulate work
                     counter.incrementAndGet();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
+                } catch (InterruptedException ignored) {
                 }
             });
         }

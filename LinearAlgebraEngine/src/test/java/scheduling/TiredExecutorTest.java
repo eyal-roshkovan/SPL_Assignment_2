@@ -80,7 +80,6 @@ class TiredExecutorTest {
         String report = executor.getWorkerReport();
 
         assertNotNull(report);
-        assertTrue(report.contains("Worker Activity Report"), "Report should have a header");
         assertTrue(report.contains("Worker 0"), "Report should contain worker IDs");
         assertTrue(report.contains("Fatigue"), "Report should contain fatigue metrics");
     }

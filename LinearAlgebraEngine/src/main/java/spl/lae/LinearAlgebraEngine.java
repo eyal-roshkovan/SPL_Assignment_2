@@ -19,13 +19,12 @@ public class LinearAlgebraEngine {
 
     public ComputationNode run(ComputationNode computationRoot) {
         ComputationNode result = null;
-        if(computationRoot.getNodeType() == ComputationNodeType.MATRIX)
-            return computationRoot;
-
-        computationRoot.associativeNesting();
-        ComputationNode newNode = computationRoot.findResolvable();
-
         try {
+            if(computationRoot.getNodeType() == ComputationNodeType.MATRIX)
+                return computationRoot;
+
+            computationRoot.associativeNesting();
+            ComputationNode newNode = computationRoot.findResolvable();
             while (newNode != null) {
                 loadAndCompute(newNode);
                 double[][] res = leftMatrix.readRowMajor();

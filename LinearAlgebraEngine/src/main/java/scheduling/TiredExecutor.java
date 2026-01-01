@@ -87,7 +87,6 @@ public class TiredExecutor {
     }
 
     public synchronized String getWorkerReport() {
-        double averageFatigue = 0.0;
         StringBuilder report = new StringBuilder();
         for(TiredThread worker: workers){
             String workerReport = String.format("Worker %d: Time Used = %d ns, Time Idle = %d ns, Fatigue = %,2f\n",
@@ -97,17 +96,16 @@ public class TiredExecutor {
                     worker.getFatigue());
             report.append(workerReport);
         }
-
-        for(TiredThread worker: workers)
+        double averageFatigue = 0.0;
+        for(TiredThread worker: workers){
             averageFatigue += worker.getFatigue();
-
+        }
         averageFatigue /= workers.length;
         report.append(String.format("Average Fatigue: %.2f\n", averageFatigue));
-
         double fairness = 0.0;
-        for(TiredThread worker: workers)
+        for(TiredThread worker: workers){
             fairness += Math.pow(worker.getFatigue() - averageFatigue, 2);
-
+        }
         report.append("Fairness value: ").append(String.format("%.2f\n", fairness));
         return report.toString();
     }

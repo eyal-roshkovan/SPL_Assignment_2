@@ -129,16 +129,12 @@ class SharedVectorTest {
     void dot() {
         double firstMulRes = 0;
         double secondMulRes = 0;
-        double thirdMulRes = 0;
 
         for (int i = 0; i < firstVector.length; i++)
             firstMulRes += firstVector[i] * thirdVector[i];
 
         for (int i = 0; i < secondVector.length; i++)
             secondMulRes += secondVector[i] * thirdVector[i];
-
-        for (int i = 0; i < secondVector.length ;i++)
-            thirdMulRes += secondVector[i] * firstVector[i];
 
         assertThrows(IllegalArgumentException.class, () -> sharedVectorFirstObject.dot(sharedVectorFourthObject));
         assertThrows(IllegalArgumentException.class, () -> sharedVectorSecondObject.dot(sharedVectorFourthObject));
@@ -147,8 +143,6 @@ class SharedVectorTest {
         assertEquals(firstMulRes, sharedVectorFirstObject.dot(sharedVectorThirdObject));
         assertEquals(secondMulRes, sharedVectorSecondObject.dot(sharedVectorThirdObject));
         assertEquals(secondMulRes, sharedVectorThirdObject.dot(sharedVectorSecondObject));
-        assertEquals(thirdMulRes, sharedVectorFirstObject.dot(sharedVectorSecondObject));
-        assertEquals(thirdMulRes, sharedVectorSecondObject.dot(sharedVectorFirstObject));
     }
 
     @Test

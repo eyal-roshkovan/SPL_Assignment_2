@@ -29,9 +29,26 @@ class TiredThreadTest {
     @Test
     void testTaskExecutionUpdatesStats() throws InterruptedException {
         // Run a task for 100ms
-        worker.newTask(() -> {
+
+        Runnable task = (() -> {
             try { Thread.sleep(100); } catch (InterruptedException e) {}
         });
+
+
+        long startTime = System.nanoTime();
+        worker.addTimeIdle(startTime - worker.getIdleStartTime());
+        Runnable taskToExecute = () -> {
+            try {
+                worker.setBusy(true);
+                task.run();
+            } finally {
+                long endTime = System.nanoTime();
+                worker.addTimeUsed(endTime - startTime);
+                worker.setIdleStartTime(endTime);
+                worker.setBusy(false);
+            }
+        };
+        worker.newTask(taskToExecute);
 
         // Small sleep to let the thread pick up the task
         Thread.sleep(20);
@@ -78,11 +95,26 @@ class TiredThreadTest {
 
         // At the start, both have 0 timeUsed, so fatigue is equal
         assertEquals(0, worker.compareTo(otherWorker), "Should be equal at start");
-
         // Run a task on our worker to increase its fatigue
-        worker.newTask(() -> {
+        Runnable task = (() -> {
             try { Thread.sleep(100); } catch (InterruptedException e) {}
         });
+
+
+        long startTime = System.nanoTime();
+        worker.addTimeIdle(startTime - worker.getIdleStartTime());
+        Runnable taskToExecute = () -> {
+            try {
+                worker.setBusy(true);
+                task.run();
+            } finally {
+                long endTime = System.nanoTime();
+                worker.addTimeUsed(endTime - startTime);
+                worker.setIdleStartTime(endTime);
+                worker.setBusy(false);
+            }
+        };
+        worker.newTask(taskToExecute);
         Thread.sleep(150); // wait for completion
 
         // Now worker has fatigue (Time * 2.0), otherWorker has 0

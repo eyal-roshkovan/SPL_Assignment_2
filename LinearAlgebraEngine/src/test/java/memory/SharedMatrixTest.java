@@ -93,8 +93,9 @@ class SharedMatrixTest {
     @Test
     void length() {
         assertEquals(2, rowMatrix.length());
-        assertEquals(3, columnMatrix.length());
-        assertEquals(0, emptyMatrix.length());
+        assertEquals(2, columnMatrix.length());
+        assertThrows(IllegalStateException.class, () -> emptyMatrix.length());
+
     }
 
     @Test

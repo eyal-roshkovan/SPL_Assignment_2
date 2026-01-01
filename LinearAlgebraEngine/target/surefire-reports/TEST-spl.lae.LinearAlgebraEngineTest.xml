@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="spl.lae.LinearAlgebraEngineTest" time="0.021" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="spl.lae.LinearAlgebraEngineTest" time="0.015" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\test-classes;C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\classes;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.2\jackson-databind-2.15.2.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.2\jackson-annotations-2.15.2.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.2\jackson-core-2.15.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter\5.8.1\junit-jupiter-5.8.1.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.1\junit-jupiter-api-5.8.1.jar;C:\Users\eyalr\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-commons\1.8.1\junit-platform-commons-1.8.1.jar;C:\Users\eyalr\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.8.1\junit-jupiter-params-5.8.1.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.1\junit-jupiter-engine-5.8.1.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-engine\1.8.1\junit-platform-engine-1.8.1.jar;"/>
+    <property name="java.class.path" value="C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\test-classes;C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\classes;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\eyalr\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.1\jackson-databind-2.17.1.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.1\jackson-annotations-2.17.1.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.1\jackson-core-2.17.1.jar;"/>
     <property name="java.vm.vendor" value="JetBrains s.r.o."/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,9 +15,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.4\jbr\bin"/>
-    <property name="sun.java.command" value="C:\Users\eyalr\AppData\Local\Temp\surefire5224434098948438061\surefirebooter-20260101162516848_3.jar C:\Users\eyalr\AppData\Local\Temp\surefire5224434098948438061 2026-01-01T16-25-16_675-jvmRun1 surefire-20260101162516848_1tmp surefire_0-20260101162516848_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\eyalr\AppData\Local\Temp\surefire1174859430995851717\surefirebooter-20260101170240038_3.jar C:\Users\eyalr\AppData\Local\Temp\surefire1174859430995851717 2026-01-01T17-02-39_946-jvmRun1 surefire-20260101170240038_1tmp surefire_0-20260101170240038_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\test-classes;C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\classes;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.2\jackson-databind-2.15.2.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.2\jackson-annotations-2.15.2.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.2\jackson-core-2.15.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter\5.8.1\junit-jupiter-5.8.1.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.1\junit-jupiter-api-5.8.1.jar;C:\Users\eyalr\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-commons\1.8.1\junit-platform-commons-1.8.1.jar;C:\Users\eyalr\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.8.1\junit-jupiter-params-5.8.1.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.1\junit-jupiter-engine-5.8.1.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-engine\1.8.1\junit-platform-engine-1.8.1.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\test-classes;C:\Users\eyalr\Desktop\Software Engineering\2nd year\1st semester\SPL\SPL_Assignment_2\LinearAlgebraEngine\target\classes;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\eyalr\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\eyalr\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.1\jackson-databind-2.17.1.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.1\jackson-annotations-2.17.1.jar;C:\Users\eyalr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.1\jackson-core-2.17.1.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\eyalr"/>
     <property name="user.language" value="en"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="intellij.os.virtualization" value="none"/>
     <property name="jbr.virtualization.information" value="Hyper-V role"/>
-    <property name="surefire.real.class.path" value="C:\Users\eyalr\AppData\Local\Temp\surefire5224434098948438061\surefirebooter-20260101162516848_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\eyalr\AppData\Local\Temp\surefire1174859430995851717\surefirebooter-20260101170240038_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.4+13-b509.26"/>
@@ -62,47 +62,47 @@
     <property name="java.class.version" value="65.0"/>
   </properties>
   <testcase name="testNegationAndTranspose" classname="spl.lae.LinearAlgebraEngineTest" time="0.005">
-    <system-out><![CDATA[Worker 0: Time Used = 12500 ns, Time Idle = 3034500 ns, Fatigue = 9,407.937582
+    <system-out><![CDATA[Worker 0: Time Used = 13800 ns, Time Idle = 3119800 ns, Fatigue = 13,874.817548
 Worker 1: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
 Worker 2: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
-Worker 3: Time Used = 35400 ns, Time Idle = 3012700 ns, Fatigue = 24,336.190087
-Average Fatigue: 8436.03
-Fairness value: 396092899.45
+Worker 3: Time Used = 15400 ns, Time Idle = 2992900 ns, Fatigue = 13,207.433575
+Average Fatigue: 6770.56
+Fairness value: 183584782.17
 
-Fairness: 3.9609289944774365E8
+Fairness: 1.835847821671891E8
 ]]></system-out>
   </testcase>
   <testcase name="testSimpleAddition" classname="spl.lae.LinearAlgebraEngineTest" time="0.002">
-    <system-out><![CDATA[Worker 0: Time Used = 25900 ns, Time Idle = 1219600 ns, Fatigue = 31,004.869646
+    <system-out><![CDATA[Worker 0: Time Used = 8500 ns, Time Idle = 646700 ns, Fatigue = 12,186.446967
 Worker 1: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
 Worker 2: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
-Worker 3: Time Used = 14100 ns, Time Idle = 725900 ns, Fatigue = 16,698.426009
-Average Fatigue: 11925.82
-Fairness value: 671238268.86
+Worker 3: Time Used = 21000 ns, Time Idle = 318500 ns, Fatigue = 12,790.074509
+Average Fatigue: 6244.13
+Fairness value: 156138839.37
 
-Fairness: 6.712382688612486E8
+Fairness: 1.5613883937343556E8
 ]]></system-out>
   </testcase>
-  <testcase name="testDeepTreeResolution" classname="spl.lae.LinearAlgebraEngineTest" time="0.004">
-    <system-out><![CDATA[Worker 0: Time Used = 46900 ns, Time Idle = 1222200 ns, Fatigue = 59,437.884940
-Worker 1: Time Used = 14500 ns, Time Idle = 1892600 ns, Fatigue = 21,347.258043
-Worker 2: Time Used = 35100 ns, Time Idle = 1710700 ns, Fatigue = 18,043.362520
-Worker 3: Time Used = 28200 ns, Time Idle = 1325300 ns, Fatigue = 26,047.992524
-Average Fatigue: 31219.12
-Fairness value: 1094093497.75
+  <testcase name="testDeepTreeResolution" classname="spl.lae.LinearAlgebraEngineTest" time="0.003">
+    <system-out><![CDATA[Worker 0: Time Used = 20100 ns, Time Idle = 1106100 ns, Fatigue = 11,248.885485
+Worker 1: Time Used = 23900 ns, Time Idle = 997400 ns, Fatigue = 22,368.449425
+Worker 2: Time Used = 38800 ns, Time Idle = 748900 ns, Fatigue = 23,354.877917
+Worker 3: Time Used = 21800 ns, Time Idle = 507200 ns, Fatigue = 17,911.205160
+Average Fatigue: 18720.85
+Fairness value: 91264974.78
 
-Fairness: 1.0940934977482183E9
+Fairness: 9.126497477770689E7
 ]]></system-out>
   </testcase>
-  <testcase name="testAssociativeNestingIntegration" classname="spl.lae.LinearAlgebraEngineTest" time="0.003">
-    <system-out><![CDATA[Worker 0: Time Used = 30400 ns, Time Idle = 1216500 ns, Fatigue = 25,224.706506
+  <testcase name="testAssociativeNestingIntegration" classname="spl.lae.LinearAlgebraEngineTest" time="0.002">
+    <system-out><![CDATA[Worker 0: Time Used = 13500 ns, Time Idle = 832800 ns, Fatigue = 12,713.259371
 Worker 1: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
 Worker 2: Time Used = 0 ns, Time Idle = 0 ns, Fatigue = 0.000000
-Worker 3: Time Used = 12300 ns, Time Idle = 842700 ns, Fatigue = 14,199.273085
-Average Fatigue: 9855.99
-Fairness value: 449342632.76
+Worker 3: Time Used = 10200 ns, Time Idle = 441200 ns, Fatigue = 11,508.015084
+Average Fatigue: 6055.32
+Fairness value: 147393840.94
 
-Fairness: 4.493426327592542E8
+Fairness: 1.4739384094483885E8
 ]]></system-out>
   </testcase>
   <testcase name="testMatrixOnlyInput" classname="spl.lae.LinearAlgebraEngineTest" time="0.002">

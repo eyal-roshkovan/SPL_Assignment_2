@@ -61,6 +61,10 @@ public class SharedVector {
     public void add(SharedVector other) {
         if (length() != other.length())
             throw new IllegalArgumentException("Given vector is not in the correct size");
+
+        if(orientation != other.orientation)
+            throw new IllegalArgumentException("Given vector is not in the correct orientation");
+
         writeLock();
         for (int i = 0; i < length(); i++)
             vector[i] = vector[i] + other.get(i);

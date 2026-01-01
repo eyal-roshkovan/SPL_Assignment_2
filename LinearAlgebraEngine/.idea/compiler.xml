@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="LinearAlgebraEngine" />
         <module name="SPLA2" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="LinearAlgebraEngine" target="15" />
+    </bytecodeTargetLevel>
   </component>
 </project>

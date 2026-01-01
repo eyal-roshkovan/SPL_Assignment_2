@@ -96,7 +96,7 @@ public class SharedMatrix {
 
     public int length() {
         if(vectors == null)
-            throw new NoSuchElementException();
+            throw new IllegalStateException();
 
         return vectors.length;
     }

@@ -39,7 +39,7 @@ public class TiredExecutor {
                     idleMinHeap.offer(lazyWorker);
                     synchronized (inFlight) {
                         if(inFlight.decrementAndGet() == 0)
-                            inFlight.notifyAll();
+                        inFlight.notifyAll();
                     }
                 }
             };
@@ -87,27 +87,26 @@ public class TiredExecutor {
     }
 
     public synchronized String getWorkerReport() {
-        // return readable statistics for each worker
-        StringBuilder ret = new StringBuilder();
+        StringBuilder report = new StringBuilder();
         for(TiredThread worker: workers){
-            String report = String.format("Worker %d: Time Used = %d ns, Time Idle = %d ns, Fatigue = %,2f\n",
+            String workerReport = String.format("Worker %d: Time Used = %d ns, Time Idle = %d ns, Fatigue = %,2f\n",
                     worker.getWorkerId(),
                     worker.getTimeUsed(),
                     worker.getTimeIdle(),
                     worker.getFatigue());
-            ret.append(report);
+            report.append(workerReport);
         }
         double averageFatigue = 0.0;
         for(TiredThread worker: workers){
             averageFatigue += worker.getFatigue();
         }
         averageFatigue /= workers.length;
-        ret.append(String.format("Average Fatigue: %.2f\n", averageFatigue));
+        report.append(String.format("Average Fatigue: %.2f\n", averageFatigue));
         double fairness = 0.0;
         for(TiredThread worker: workers){
             fairness += Math.pow(worker.getFatigue() - averageFatigue, 2);
         }
-        ret.append("Fairness value: " + String.format("%.2f\n", fairness));
-        return ret.toString();
+        report.append("Fairness value: ").append(String.format("%.2f\n", fairness));
+        return report.toString();
     }
 }

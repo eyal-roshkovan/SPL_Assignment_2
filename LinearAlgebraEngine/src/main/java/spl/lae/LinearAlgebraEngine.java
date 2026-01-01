@@ -25,20 +25,22 @@ public class LinearAlgebraEngine {
         computationRoot.associativeNesting();
         ComputationNode newNode = computationRoot.findResolvable();
 
-        while (newNode != null) {
-            loadAndCompute(newNode);
-            double[][] res = leftMatrix.readRowMajor();
-            newNode.resolve(res);
+        try {
+            while (newNode != null) {
+                loadAndCompute(newNode);
+                double[][] res = leftMatrix.readRowMajor();
+                newNode.resolve(res);
 
-            result = new ComputationNode(res);
-            newNode = computationRoot.findResolvable();
+                result = new ComputationNode(res);
+                newNode = computationRoot.findResolvable();
+            }
+            System.out.println(getWorkerReport());
         }
-        System.out.println(getWorkerReport());
-        try{
-            executor.shutdown();
-        }
-        catch(Exception e){
-
+        finally {
+            try {
+                executor.shutdown();
+            } catch ( InterruptedException e) {
+            }
         }
 
     return result;
@@ -56,7 +58,6 @@ public class LinearAlgebraEngine {
 
         if(children.size() == 2)
          matrix2 = children.get(1).getMatrix();
-        try{
 
             if (type == ComputationNodeType.MULTIPLY && children.size() == 2) {
                 rightMatrix.loadColumnMajor(matrix2);
@@ -73,18 +74,8 @@ public class LinearAlgebraEngine {
                 tasks = createTransposeTasks();
             else
                 throw new IllegalArgumentException("Incorrect number of operands");
-        }
-        catch(Exception e){
-            try{
-                executor.shutdown();
-            }
-            catch(Exception e1){
 
-            }
-            throw e;
-        }
-
-        this.executor.submitAll(tasks);
+        executor.submitAll(tasks);
 
     }
 

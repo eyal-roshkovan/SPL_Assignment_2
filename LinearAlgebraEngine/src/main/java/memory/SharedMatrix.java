@@ -29,9 +29,8 @@ public class SharedMatrix {
             newVectors[i] = new SharedVector(matrix[i], VectorOrientation.ROW_MAJOR);
 
         SharedVector[] oldVectors = vectors;
-        releaseAllVectorWriteLocks(oldVectors);
         vectors = newVectors;
-
+        releaseAllVectorWriteLocks(oldVectors);
     }
 
     public void loadColumnMajor(double[][] matrix) {

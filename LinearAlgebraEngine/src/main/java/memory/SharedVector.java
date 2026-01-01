@@ -11,10 +11,8 @@ public class SharedVector {
     public SharedVector(double[] vector, VectorOrientation orientation) {
         if (vector == null)
             throw new IllegalArgumentException("vector cant be null");
-        writeLock();
         this.vector = vector;
         this.orientation = orientation;
-        writeUnlock();
     }
 
     public double get(int index) {

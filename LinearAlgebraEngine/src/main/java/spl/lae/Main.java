@@ -4,7 +4,6 @@ import parser.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-      // TODO: main
         try{
             InputParser parser = new InputParser();
             ComputationNode tasks =  parser.parse(args[1]);

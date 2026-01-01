@@ -40,32 +40,25 @@ class TiredExecutorTest {
             });
         }
 
-        // This should take roughly (10 tasks / 4 threads) * 100ms = ~300ms
         executor.submitAll(tasks);
 
-        // If submitAll is working correctly, counter must be exactly numTasks
-        // immediately after the method returns.
         assertEquals(numTasks, counter.get(), "submitAll should not return until all tasks finish");
     }
 
     @Test
     void testTaskDistribution() throws InterruptedException {
-        // Submit exactly as many tasks as there are threads
         for (int i = 0; i < NUM_THREADS; i++) {
             executor.submit(() -> {
                 try { Thread.sleep(200); } catch (InterruptedException ignored) {}
             });
         }
 
-        // At this point, the idleMinHeap should be empty.
-        // The next submit should block until one of the first 4 tasks finishes.
         long startTime = System.currentTimeMillis();
 
         executor.submit(() -> {});
 
         long duration = System.currentTimeMillis() - startTime;
 
-        // Duration should be at least 200ms because it had to wait for a worker to become idle
         assertTrue(duration >= 200, "Submit should have blocked waiting for an idle worker");
     }
 

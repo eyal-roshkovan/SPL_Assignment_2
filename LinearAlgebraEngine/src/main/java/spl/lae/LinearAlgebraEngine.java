@@ -33,9 +33,9 @@ public class LinearAlgebraEngine {
                 result = new ComputationNode(res);
                 newNode = computationRoot.findResolvable();
             }
-            System.out.println(getWorkerReport());
         }
         finally {
+            System.out.println(getWorkerReport());
             try {
                 executor.shutdown();
             }

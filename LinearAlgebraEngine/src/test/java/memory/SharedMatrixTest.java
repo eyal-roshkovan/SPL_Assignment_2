@@ -23,7 +23,7 @@ class SharedMatrixTest {
 
     @BeforeEach
     void setUp() {
-        rowMatrix = new SharedMatrix(rowData); // Should default to row-major logic
+        rowMatrix = new SharedMatrix(rowData);
         columnMatrix = new SharedMatrix();
         columnMatrix.loadColumnMajor(columnData);
         emptyMatrix = new SharedMatrix();
@@ -42,7 +42,6 @@ class SharedMatrixTest {
 
     @Test
     void loadColumnMajor() {
-        // loading 3x2 column data should result in 2 vectors of length 3
         double[][] newData = {
                 {1, 2},
                 {3, 4},
@@ -53,7 +52,6 @@ class SharedMatrixTest {
         assertEquals(2, columnMatrix.length());
         assertEquals(VectorOrientation.COLUMN_MAJOR, columnMatrix.getOrientation());
 
-        // First vector should be first column: [1, 3, 5]
         assertEquals(1, columnMatrix.get(0).get(0));
         assertEquals(3, columnMatrix.get(0).get(1));
         assertEquals(5, columnMatrix.get(0).get(2));
@@ -61,17 +59,14 @@ class SharedMatrixTest {
 
     @Test
     void readRowMajor() {
-        // Test row-major internal storage
         double[][] rowResult = rowMatrix.readRowMajor();
         for (int i = 0; i < rowData.length; i++) {
             assertArrayEquals(rowData[i], rowResult[i]);
         }
 
-        // Test column-major internal storage (should be converted back to row-major)
-        // If columnData was loaded as Column Major, readRowMajor should return the original matrix shape
         double[][] colResult = columnMatrix.readRowMajor();
-        assertEquals(3, colResult.length); // 2 rows
-        assertEquals(2, colResult[0].length); // 3 columns
+        assertEquals(3, colResult.length);
+        assertEquals(2, colResult[0].length);
         assertEquals(1, colResult[0][0]);
         assertEquals(2, colResult[1][0]);
     }

@@ -39,11 +39,11 @@ public class LinearAlgebraEngine {
         finally {
             try {
                 executor.shutdown();
-            } catch ( InterruptedException e) {
+            }
+            catch (InterruptedException e) {
             }
         }
-
-    return result;
+        return result;
     }
 
     public void loadAndCompute(ComputationNode node) {
@@ -57,23 +57,23 @@ public class LinearAlgebraEngine {
         leftMatrix.loadRowMajor(matrix1);
 
         if(children.size() == 2)
-         matrix2 = children.get(1).getMatrix();
+            matrix2 = children.get(1).getMatrix();
 
-            if (type == ComputationNodeType.MULTIPLY && children.size() == 2) {
-                rightMatrix.loadColumnMajor(matrix2);
-                tasks = createMultiplyTasks();
-            }
-            else if (type == ComputationNodeType.ADD && children.size() == 2) {
-                rightMatrix.loadRowMajor(matrix2);
-                tasks = createAddTasks();
-            }
-            else if (type == ComputationNodeType.NEGATE && children.size() == 1)
-                tasks = createNegateTasks();
+        if (type == ComputationNodeType.MULTIPLY && children.size() == 2) {
+            rightMatrix.loadColumnMajor(matrix2);
+            tasks = createMultiplyTasks();
+        }
+        else if (type == ComputationNodeType.ADD && children.size() == 2) {
+            rightMatrix.loadRowMajor(matrix2);
+            tasks = createAddTasks();
+        }
+        else if (type == ComputationNodeType.NEGATE && children.size() == 1)
+            tasks = createNegateTasks();
 
-            else if (type == ComputationNodeType.TRANSPOSE && children.size() == 1)
-                tasks = createTransposeTasks();
-            else
-                throw new IllegalArgumentException("Incorrect number of operands");
+        else if (type == ComputationNodeType.TRANSPOSE && children.size() == 1)
+            tasks = createTransposeTasks();
+        else
+            throw new IllegalArgumentException("Incorrect number of operands");
 
         executor.submitAll(tasks);
 
